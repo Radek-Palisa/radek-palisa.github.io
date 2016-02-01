@@ -1,0 +1,85 @@
+/* Some styles to begin with */
+
+* {
+	box-sizing: border-box;
+}
+
+aside {
+	margin: 0;
+	background-color: #282839;
+	color: white;
+	padding-top: 20vh;
+	font-family: open sans;
+}
+
+.container {
+	width: 580px;
+	margin: 0 auto;
+	text-align: center;
+	
+}
+
+aside h1 {
+	padding: 5px 10px;
+	display: inline-block;
+	font-family: montserrat;
+	font-weight: normal;
+	font-size: 44px;
+	color: #f2b632;
+	border: solid 2px #f2b632;
+}
+
+aside h2 {
+	margin: 100px 0;
+	font-weight: normal;
+	line-height: 40px;
+}
+
+aside p {
+	color: #f2b632;
+	font-style: oblique;
+	font-size: 24px;
+}
+
+aside a {
+	font-size: 24px;
+	margin-left: 40px;
+	display: inline-block;
+	text-decoration: none;
+	color: white;
+}
+
+aside a h3 {
+	font-weight: normal;
+}
+
+aside a div {
+	margin: 0 auto;
+	height: 50px;
+	width: 50px;
+	border: solid 2px white;
+	border-radius: 50px;
+}
+
+.content {
+	background-color: cornflowerblue;
+	border-bottom: solid 4px black;
+	height: 100vh;
+}
+
+/* Layout*/
+
+aside {
+	width: 50%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+main {
+	width: 50%;
+	display: inline-block;
+	float: right;
+	
+}
