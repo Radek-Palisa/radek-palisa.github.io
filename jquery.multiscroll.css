@@ -24,6 +24,7 @@ html, body {
 .ms-tableCell {
     display: table-cell;
     vertical-align: middle;
+	text-align: center;
     width: 100%;
     height: 100%;
 }
@@ -74,7 +75,7 @@ html, body {
     left: 2px;
     width: 8px;
     height: 8px;
-    border: 1px solid #000;
+    border: 1px solid #fff;
     background: rgba(0, 0, 0, 0);
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;

@@ -1,36 +1,19 @@
 /* Some styles to begin with */
 
-* {
-	box-sizing: border-box;
-}
-
 body {
 	background-color: #282839;
 }
 
-html, body {
-	height: 100%;
-}
 
-/*  SIDEBAR  */
+/*  First Page Left Side  */
 
-aside {
-	margin: 0;
+.landing {
 	background-color: #282839;
 	color: white;
-	
 	font-family: open sans;
 }
 
-.container {
-	max-width: 580px;
-	margin: 0 auto;
-	text-align: center;
-	
-}
-
-aside h1 {
-	margin-top: 35%;
+.landing h1 {
 	padding: 5px 10px;
 	display: inline-block;
 	font-family: montserrat;
@@ -40,31 +23,31 @@ aside h1 {
 	border: solid 2px #f2b632;
 }
 
-aside h2 {
-	margin: 25% 0;
+.landing h2 {
 	font-weight: normal;
 	line-height: 40px;
+	margin: 10% 0
 }
 
-aside p {
+.landing p {
 	color: #f2b632;
 	font-style: oblique;
 	font-size: 24px;
 }
 
-aside a {
-	font-size: 24px;
+.landing a {
+	font-size: 1.2em;
 	margin-left: 40px;
 	display: inline-block;
 	text-decoration: none;
 	color: white;
 }
 
-aside a h3 {
+.landing a h3 {
 	font-weight: normal;
 }
 
-aside a div {
+.landing a div {
 	margin: 0 auto;
 	height: 50px;
 	width: 50px;
@@ -73,74 +56,12 @@ aside a div {
 }
 
 
-/* MAIN */
-
-main {
-	height: 100%;
-}
-
-.content {
-	background-color: #b5b5b7;
-	border-bottom: solid 1px black;
-	height: 100%;
-	font-family: open sans;
-}
-
-.first {
-	background-color: #282839;
-}
-
-.sketch {
-	margin: 20% auto;
-	width: 50%;
-	
-}
+/* First Page Right Side */
 
 .sketch img {
-	width: 100%;
+	width: 55%;
 }
 
-/* WHO I AM  */
+/* Second Page Left Side */
 
-.who-i-am {
-	position: relative;
-}
 
-.who-i-am h1 {
-	position: absolute;
-	top: 15%;
-	left: 15%
-}
-
-.who-i-am p {
-	position: absolute;
-	top: 20%;
-	left: 15%;
-	width: 70%;
-	font-size: 24px;
-	line-height: 38px;
-}
-
-.who-i-am img {
-	width: 70%;
-	position: absolute;
-	bottom: 0;
-	right: -80px;
-}
-
-/* Layout*/
-
-aside {
-	width: 50%;
-	height: 100vh;
-	position: fixed;
-	top: 0;
-	left: 0;
-}
-
-main {
-	width: 50%;
-	display: inline-block;
-	float: right;
-	
-}

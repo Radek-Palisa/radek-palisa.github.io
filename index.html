@@ -3,7 +3,7 @@
 <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="normalize.css">
+<!--		<link rel="stylesheet" href="normalize.css">-->
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" type="text/css" href="jquery.multiscroll.css" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -13,78 +13,89 @@
 </head>
 
 <body>
-		<aside>
-			<div class="container">	
+	<div id="multiscroll">
+		<div class="ms-left">
+			<div class="ms-section landing">	
+				
 				<h1>Radek Palisa</h1>
 				<h2>Hi, I'm Radek.<br>I design and build websites.</h2>
 				<p>Find out</p>
-				<a href="#">
-					<h3>Who I am</h3>
-					<div class="icon"></div>	
-				</a>
-				<a href="#">
-					<h3>What I do</h3>
-					<div class="icon"></div>	
-				</a>
-				<a href="#">
-					<h3>Contact me</h3>
-					<div class="icon"></div>	
-				</a>
-			</div>	
-		</aside><!-- removing white space between elements
-		
-	 --><main>
-			<article class="content first">
-				<section class="sketch">
-					<img src="../sketch.png" alt="">
-				</section>
-			</article>
-			<article class="content who-i-am">
+					
+					<a href="#">
+						<h3>Who I am</h3>
+						<div class="icon"></div>	
+					</a>
+					<a href="#">
+						<h3>What I do</h3>
+						<div class="icon"></div>	
+					</a>
+					<a href="#">
+						<h3>Contact me</h3>
+						<div class="icon"></div>	
+					</a>
+				
+			</div>
+			<div class="ms-section">
+				
 				<h1>Who I am</h1>
 				<p>I am a freelance WordPress Developer and Web Designer. I am passionate about Web Development. It challenges me and keeps me focused. The Web is constantly evolving and so am I constantly updating my skills to keep up with the latest trends. </p>
+				
+			</div>
+			<div class="ms-section">
+				<h1>some pictures will go here</h1>
+			</div>
+			<div class="ms-section">
+				<h1>contact me</h1>
+			</div>	
+		</div>
+	 
+	 	<div class="ms-right">
+			<div class="ms-section sketch">
+					<img src="../sketch.png" alt="">
+			</div>
+			<div class="ms-section">
+				
 				<img src="../headshot.png" alt="">
-			</article>
-			<article class="content what-i-do"></article>
-			<article class="content contact-me"></article>
-		</main>	
+			</div>
+			<div class="ms-section"></div>
+			<div class="ms-section"></div>	
+		</div>	
+	</div>	<!-- #multiscroll -->
 		
-<script>
+	<script>
 	
-$(document).ready(function () {
-    var divs = $('.content');
-    var dir = 'up'; // wheel scroll direction
-    var div = 0; // current div
-    $(document.body).on('DOMMouseScroll mousewheel', function (e) {
-        if (e.originalEvent.detail > 0 || e.originalEvent.wheelDelta < 0) {
-            dir = 'down';
-        } else {
-            dir = 'up';
-        }
-        // find currently visible div :
-        div = -1;
-        divs.each(function(i){
-            if (div<0 && ($(this).offset().top >= $(window).scrollTop())) {
-                div = i;
-            }
-        });
-        if (dir == 'up' && div > 0) {
-            div--;
-        }
-        if (dir == 'down' && div < divs.length) {
-            div++;
-        }
-        //console.log(div, dir, divs.length);
-        $('html,body').stop().animate({
-            scrollTop: divs.eq(div).offset().top
-        }, 200);
-        return false;
-    });
-    $(window).resize(function () {
-        $('html,body').scrollTop(divs.eq(div).offset().top);
-    });
-});	
+	$(document).ready(function() {
+		$('#multiscroll').multiscroll({
+			verticalCentered : true,
+			scrollingSpeed: 700,
+			easing: 'easeInQuart',
+			menu: false,
+			sectionsColor: [],
+			navigation: true,
+			navigationPosition: 'right',
+			navigationColor: '#000',
+			navigationTooltips: ['Home', 'Who I am', 'What I do', 'Contact'],
+			loopBottom: false,
+			loopTop: false,
+			css3: false,
+			paddingTop: 0,
+			paddingBottom: 0,
+			normalScrollElements: null,
+			keyboardScrolling: true,
+			touchSensitivity: 5,
 
-</script>
-		
+			// Custom selectors
+			sectionSelector: '.ms-section',
+			leftSelector: '.ms-left',
+			rightSelector: '.ms-right',
+
+			//events
+			onLeave: function(index, nextIndex, direction){},
+			afterLoad: function(anchorLink, index){},
+			afterRender: function(){},
+			afterResize: function(){},
+		});
+	});
+	</script>
 </body>
 </html>
