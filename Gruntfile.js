@@ -32,11 +32,15 @@ module.exports = function(grunt) {
 	  	 * Watch
 	  	 */
 		watch: {
+			options: { livereload: true},
 			css: {
 				files: '**/*.scss',
 				tasks: ['sass']
+			}, //css
+			html: {
+				files: '*.html',
 			}
-		},
+		}, // watch
 
 	});
 	grunt.loadNpmTasks('grunt-contrib-sass');

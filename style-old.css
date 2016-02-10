@@ -1,0 +1,67 @@
+/* Some styles to begin with */
+
+body {
+	background-color: #282839;
+}
+
+
+/*  First Page Left Side  */
+
+.landing {
+	background-color: #282839;
+	color: black;
+	font-family: open sans;
+}
+
+.landing h1 {
+	padding: 5px 10px;
+	display: inline-block;
+	font-family: montserrat;
+	font-weight: normal;
+	font-size: 44px;
+	color: #f2b632;
+	border: solid 2px #f2b632;
+}
+
+.landing h2 {
+	font-weight: normal;
+	line-height: 40px;
+	margin: 10% 0
+}
+
+.landing p {
+	color: #f2b632;
+	font-style: oblique;
+	font-size: 24px;
+}
+
+.landing a {
+	font-size: 1.2em;
+	margin-left: 40px;
+	display: inline-block;
+	text-decoration: none;
+	color: white;
+}
+
+.landing a h3 {
+	font-weight: normal;
+}
+
+.landing a div {
+	margin: 0 auto;
+	height: 50px;
+	width: 50px;
+	border: solid 2px white;
+	border-radius: 50px;
+}
+
+
+/* First Page Right Side */
+
+.sketch img {
+	width: 55%;
+}
+
+/* Second Page Left Side */
+
+
