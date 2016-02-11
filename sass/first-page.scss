@@ -5,6 +5,8 @@
 	h1 {
 		color: $highlight-color;
 		font-family: $font-heading;
+		font-weight: normal;
+		font-size: 44px;
 		padding: 5px 10px;
 		border: solid 2px $highlight-color;
 		display: inline-block;
@@ -36,12 +38,13 @@
 	
 	a div {
 		margin: 0 auto;
+		width: 40px;
+		padding: 10px;
+		border: solid 2px white;
+		border-radius: 100%;
 		
 		i {
 			font-size: 36px;
-			padding: 5px;
-			border: solid 2px white;
-			border-radius: 100%;
 		}
 	}
 }

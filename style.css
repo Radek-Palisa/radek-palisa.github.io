@@ -523,6 +523,8 @@ html, body {
 .landing h1 {
   color: #f2b632;
   font-family: montserrat, sans-serif;
+  font-weight: normal;
+  font-size: 44px;
   padding: 5px 10px;
   border: solid 2px #f2b632;
   display: inline-block;
@@ -549,12 +551,13 @@ html, body {
 }
 .landing a div {
   margin: 0 auto;
+  width: 40px;
+  padding: 10px;
+  border: solid 2px white;
+  border-radius: 100%;
 }
 .landing a div i {
   font-size: 36px;
-  padding: 5px;
-  border: solid 2px white;
-  border-radius: 100%;
 }
 
 .sketch {
@@ -562,4 +565,22 @@ html, body {
 }
 .sketch img {
   width: 50%;
+}
+
+.who-i-am {
+  margin: 0 auto 50% auto;
+  width: 60%;
+}
+.who-i-am p {
+  font-size: 24px;
+}
+
+/*.headshot .ms-tableCell {
+	vertical-align: bottom;
+} */
+.headshot img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
 }
