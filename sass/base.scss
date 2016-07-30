@@ -1,8 +1,58 @@
-$main-color : #282839;
-$highlight-color : #f2b632;
+// to be set to 91% opacity
+$dark-blue : #282839;
+$dark-purple : #330033;
+$dark-green : #063406;
+
+$white : #fff;
+$highlight-color : #f2b632; // yellowish
+$dark-grey : #677077;
+$light-grey : #b5b5b7;
 
 $font-primary: montserrat, sans-serif;
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
 	font-family: $font-primary;
+	line-height: 1.5;
+}
+
+h1 {
+	text-transform: uppercase;
+	margin: 0;
+	text-align: center;
+}
+
+
+// Diagonality
+.section-diagonal {
+	position: relative;
+	overflow: hidden;
+}
+
+.section-diagonal--upwards::before {
+	content: '';
+	display: block;
+	width: 105%;
+	height: 100px;
+	position: absolute;
+	background-color: white;
+	bottom: -50px;
+	transform: rotateZ(-4deg)
+}
+
+.section-diagonal--downwards::after {
+	content: '';
+	display: block;
+	width: 105%;
+	height: 100px;
+	position: absolute;
+	background-color: white;
+	top: -50px;
+	transform: rotateZ(4deg)
 }

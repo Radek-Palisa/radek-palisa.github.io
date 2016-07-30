@@ -393,12 +393,187 @@ th {
   padding: 0;
 }
 
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   font-family: montserrat, sans-serif;
+  line-height: 1.5;
 }
 
 h1 {
-  color: red;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+}
+
+.section-diagonal {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-diagonal--upwards::before {
+  content: '';
+  display: block;
+  width: 105%;
+  height: 100px;
+  position: absolute;
+  background-color: white;
+  bottom: -50px;
+  transform: rotateZ(-4deg);
+}
+
+.section-diagonal--downwards::after {
+  content: '';
+  display: block;
+  width: 105%;
+  height: 100px;
+  position: absolute;
+  background-color: white;
+  top: -50px;
+  transform: rotateZ(4deg);
+}
+
+.header {
+  background: linear-gradient(rgba(40, 40, 57, 0.91), rgba(40, 40, 57, 0.91)), url("./img/lake.jpg");
+  background-size: cover;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5em 30px;
+}
+
+.lang__btn {
+  padding: 0;
+  font-size: 0.9em;
+  background: none;
+  border: none;
+  outline: 0;
+  color: rgba(255, 255, 255, 0.6);
+}
+.lang__btn--activated, .lang__btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+.lang__btn:first-of-type::after, .lang__btn:nth-of-type(2)::after {
+  content: "|";
+  color: rgba(255, 255, 255, 0.6);
+  margin-left: 7px;
+  margin-right: 3px;
+}
+
+.nav__list {
+  display: flex;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.nav__list li a {
+  margin-left: 25px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.9em;
+  color: #fff;
+  color: rgba(255, 255, 255, 0.9);
+}
+.nav__list li a:hover {
+  color: #f2b632;
+}
+
+.logo {
+  text-align: center;
+  padding: 100px 0 150px;
+}
+.logo__title {
+  display: inline-block;
+  padding: 7px 34px;
+  border: 2px solid #f2b632;
+  color: #f2b632;
+  letter-spacing: 1px;
+}
+.logo__desc {
+  text-transform: uppercase;
+  font-style: italic;
+  font-size: 0.8em;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.about {
+  color: #4e4e53;
+  padding-bottom: 50px;
+}
+
+.about__title {
+  padding: 50px 0;
+  font-size: 1em;
+}
+
+.about__graphic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about__graphic .circle {
+  width: 90px;
+  height: 90px;
+  margin: 15px;
+  border-radius: 50%;
+  background-color: #f2b632;
+}
+.about__graphic .circle-big {
+  width: 150px;
+  height: 150px;
+  background-color: #b5b5b7;
+}
+
+.about__opener {
+  text-align: center;
+}
+
+.about__intro {
+  max-width: 26em;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.work {
+  background: linear-gradient(rgba(51, 0, 51, 0.91), rgba(51, 0, 51, 0.91)), url("./img/lake.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.work__title {
+  padding: 130px 0;
+  font-size: 1em;
+  color: white;
+}
+
+.contact__title {
+  padding: 50px 0;
+  font-size: 1em;
+  color: #4e4e53;
+}
+
+.footer {
+  background: linear-gradient(rgba(6, 52, 6, 0.91), rgba(6, 52, 6, 0.91)), url("./img/lake.jpg");
+  background-size: cover;
+  background-position: center 10%;
+  padding-bottom: 30px;
+}
+
+.footer__copyright {
+  color: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  padding-top: 50px;
+  padding-left: 25px;
 }
 
 /*# sourceMappingURL=style.css.map */

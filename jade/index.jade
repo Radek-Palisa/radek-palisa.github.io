@@ -1,4 +1,44 @@
 extends partials/skeleton.jade
 
 block body
-	h1 Hello, world!
+	header.header.section-diagonal.section-diagonal--upwards
+		nav.nav
+			.lang
+				button.lang__btn.lang__btn--activated En
+				button.lang__btn Cs
+				button.lang__btn Gr
+
+			ul.nav__list
+				li: a(href="#about") About
+				li: a(href="#work") Work
+				li: a(href="#contact") Contact
+		.logo
+			h1.logo__title Radek Palisa
+			p.logo__desc Web Design &amp Development
+
+	section.about#about
+		h1.about__title About
+		section.about__graphic
+			.circle
+			.circle
+			.circle.circle-big
+			.circle
+			.circle
+		p.about__opener Hi, I'm Radek.
+		p.about__intro I am a Web Developer and Designer from the Czech Republic. I have been steering my career towards Front-End Development for about a year now and I am currently rolling out my first websites. Support me on my journey by checking out my work or dropping me a message about what you like or what I should improve.
+
+	section.work.section-diagonal.section-diagonal--downwards.section-diagonal--upwards#work
+		h1.work__title My Latest Work
+		section.work__example
+			.img
+			.description
+
+	section.contact#contact
+		h1.contact__title Contact
+
+	footer.footer.section-diagonal.section-diagonal--downwards
+		p.footer__copyright 2016 All Rights Reserved
+		ul.nav__list
+			li: a(href="#about") About
+			li: a(href="#work") Work
+			li: a(href="#contact") Contact

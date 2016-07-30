@@ -12,8 +12,54 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   </head>
   <body>
-    <h1>Hello, world!</h1>
-    <!-- script(src="js/functions.js")-->
-    
+    <header class="header section-diagonal section-diagonal--upwards">
+      <nav class="nav">
+        <div class="lang">
+          <button class="lang__btn lang__btn--activated">En</button>
+          <button class="lang__btn">Cs</button>
+          <button class="lang__btn">Gr</button>
+        </div>
+        <ul class="nav__list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="logo">
+        <h1 class="logo__title">Radek Palisa</h1>
+        <p class="logo__desc">Web Design &amp Development</p>
+      </div>
+    </header>
+    <section id="about" class="about">
+      <h1 class="about__title">About</h1>
+      <section class="about__graphic">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle circle-big"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </section>
+      <p class="about__opener">Hi, I'm Radek.</p>
+      <p class="about__intro">I am a Web Developer and Designer from the Czech Republic. I have been steering my career towards Front-End Development for about a year now and I am currently rolling out my first websites. Support me on my journey by checking out my work or dropping me a message about what you like or what I should improve.</p>
+    </section>
+    <section id="work" class="work section-diagonal section-diagonal--downwards section-diagonal--upwards">
+      <h1 class="work__title">My Latest Work</h1>
+      <section class="work__example">
+        <div class="img"></div>
+        <div class="description"></div>
+      </section>
+    </section>
+    <section id="contact" class="contact">
+      <h1 class="contact__title">Contact</h1>
+    </section>
+    <footer class="footer section-diagonal section-diagonal--downwards">
+      <p class="footer__copyright">2016 All Rights Reserved</p>
+      <ul class="nav__list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </footer>
+    <script src="js/functions.js"></script>
   </body>
 </html>
