@@ -1,87 +1,19 @@
 <!DOCTYPE html>
-<html lang="">
-<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="normalize.css">
-		<link rel="stylesheet" href="style.css">
-		<title>Radek Palisa</title>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-</head>
-
-<body>
-		<aside>
-			<div class="container">	
-				<h1>Radek Palisa</h1>
-				<h2>Hi, I'm Radek.<br>I design and build websites.</h2>
-				<p>Find out</p>
-				<a href="#">
-					<h3>Who I am</h3>
-					<div class="icon"></div>	
-				</a>
-				<a href="#">
-					<h3>What I do</h3>
-					<div class="icon"></div>	
-				</a>
-				<a href="#">
-					<h3>Contact me</h3>
-					<div class="icon"></div>	
-				</a>
-			</div>	
-		</aside><!-- removing white space between elements
-		
-	 --><main>
-			<article class="content first">
-				<section class="sketch">
-					<img src="../sketch.png" alt="">
-				</section>
-			</article>
-			<article class="content who-i-am">
-				<h1>Who I am</h1>
-				<p>I am a freelance WordPress Developer and Web Designer. I am passionate about Web Development. It challenges me and keeps me focused. The Web is constantly evolving and so am I constantly updating my skills to keep up with the latest trends. </p>
-				<img src="../headshot.png" alt="">
-			</article>
-			<article class="content what-i-do"></article>
-			<article class="content contact-me"></article>
-		</main>	
-		
-<script>
-	
-$(document).ready(function () {
-    var divs = $('.content');
-    var dir = 'up'; // wheel scroll direction
-    var div = 0; // current div
-    $(document.body).on('DOMMouseScroll mousewheel', function (e) {
-        if (e.originalEvent.detail > 0 || e.originalEvent.wheelDelta < 0) {
-            dir = 'down';
-        } else {
-            dir = 'up';
-        }
-        // find currently visible div :
-        div = -1;
-        divs.each(function(i){
-            if (div<0 && ($(this).offset().top >= $(window).scrollTop())) {
-                div = i;
-            }
-        });
-        if (dir == 'up' && div > 0) {
-            div--;
-        }
-        if (dir == 'down' && div < divs.length) {
-            div++;
-        }
-        //console.log(div, dir, divs.length);
-        $('html,body').stop().animate({
-            scrollTop: divs.eq(div).offset().top
-        }, 400);
-        return false;
-    });
-    $(window).resize(function () {
-        $('html,body').scrollTop(divs.eq(div).offset().top);
-    });
-});	
-
-</script>
-		
-</body>
+<html lang="en">
+  <head>
+    <!--[if lte IE 8]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Radek Palisa</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <!-- script(src="js/functions.js")-->
+    
+  </body>
 </html>
