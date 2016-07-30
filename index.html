@@ -1,114 +1,19 @@
 <!DOCTYPE html>
-<html lang="">
-<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="style.css">
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="vendors/jquery.easings.min.js"></script>
-		<script type="text/javascript" src="jquery.multiscroll.js"></script>
-		<title>Radek Palisa</title>
-</head>
-
-<body>
-	<div id="multiscroll">
-		<div class="ms-left">
-			
-			<!-- First Page Left Side -->
-			<div class="ms-section landing">			
-				<h1>Radek Palisa</h1>
-				<h2>Hi, I'm Radek.<br>I design and build websites.</h2>
-				<p>Find out</p>
-					
-				<a href="#">
-					<h3>Who I am</h3>
-					<div class="icon"><i class="fa fa-user"></i></div>	
-				</a>
-				<a href="#">
-					<h3>What I do</h3>
-					<div class="icon"><i class="fa fa-wrench"></i></div>	
-				</a>
-				<a href="#">
-					<h3>Contact me</h3>
-					<div class="icon"><i class="fa fa-envelope"></i></div>	
-				</a>				
-			</div>
-			
-			<!-- Second Page Left Side -->	
-			<div class="ms-section">	
-				<section class="who-i-am">
-					<h1>Who I am</h1>
-					<p>I am a freelance WordPress Developer and Web Designer. I am passionate about Web Development. It challenges me and keeps me focused. The Web is constantly evolving and so am I constantly updating my skills to keep up with the latest trends. </p>
-				</section>
-			</div>
-			
-			<!-- Third Page Left Side -->	
-			<div class="ms-section" responsive>
-				<h1>some pictures will go here</h1>
-			</div>
-			
-			<!-- Fourth Page Left Side -->	
-			<div class="ms-section">
-				<h1>contact me</h1>
-			</div>	
-		</div> <!-- ms-left -->
-	 
-		<div class="ms-right">
-		
-			<!-- First Page Right Side -->
-			<div class="ms-section sketch">
-					<img src="../sketch.png" alt="">
-			</div>
-			
-			<!-- Second Page Right Side -->
-			<div class="ms-section headshot">	
-				<img src="../headshot.png" alt="">
-			</div>
-			
-			<!-- Third Page Right Side -->
-			<div class="ms-section"></div>
-			
-			<!-- Fourth Page Right Side -->
-			<div class="ms-section"></div>	
-			
-		</div>	<!-- ms-right -->
-	</div>	<!-- #multiscroll -->
-		
-	<script>
-	
-	$(document).ready(function() {
-		$('#multiscroll').multiscroll({
-			verticalCentered : true,
-			scrollingSpeed: 700,
-			easing: 'easeInQuart',
-			menu: false,
-			sectionsColor: ['', '#B5B5B7', '#282839'],
-			navigation: true,
-			navigationPosition: 'right',
-			navigationColor: '#000',
-			navigationTooltips: ['Home', 'Who I am', 'What I do', 'Contact'],
-			loopBottom: false,
-			loopTop: false,
-			css3: false,
-			paddingTop: 0,
-			paddingBottom: 0,
-			normalScrollElements: null,
-			keyboardScrolling: true,
-			touchSensitivity: 5,
-
-			// Custom selectors
-			sectionSelector: '.ms-section',
-			leftSelector: '.ms-left',
-			rightSelector: '.ms-right',
-
-			//events
-			onLeave: function(index, nextIndex, direction){},
-			afterLoad: function(anchorLink, index){},
-			afterRender: function(){},
-			afterResize: function(){},
-		});
-	});
-	</script>
-	<script src="http://localhost:35729/livereload.js"></script>
-</body>
+<html lang="en">
+  <head>
+    <!--[if lte IE 8]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Radek Palisa</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <!-- script(src="js/functions.js")-->
+    
+  </body>
 </html>

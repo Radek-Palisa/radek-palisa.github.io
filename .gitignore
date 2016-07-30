@@ -4,3 +4,6 @@ tmp
 .sass-cache
 *.css.map
 vendors
+img
+style-min.css
+style.css.map

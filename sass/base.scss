@@ -1,13 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
-
 $main-color : #282839;
 $highlight-color : #f2b632;
 
-$font-primary: open sans, sans-serif;
-$font-heading: montserrat, sans-serif;
-
+$font-primary: montserrat, sans-serif;
 
 body {
 	font-family: $font-primary;
