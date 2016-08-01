@@ -9,6 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   </head>
   <body>
@@ -18,6 +24,9 @@
           <button class="lang__btn lang__btn--activated">En</button>
           <button class="lang__btn">Cs</button>
           <button class="lang__btn">Gr</button>
+          <div class="lang__not-available">
+            <p>Oups, sorry this option is not yet available, but it's coming soon!</p>
+          </div>
         </div>
         <ul class="nav__list">
           <li><a href="#about">About</a></li>
@@ -31,29 +40,50 @@
       </div>
     </header>
     <section id="about" class="about">
-      <h1 class="about__title">About</h1>
+      <h1 class="section-title section-title--about">About</h1>
       <section class="about__graphic">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle circle-big"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
+        <figure class="about-icon about-icon--code">
+          <figcaption>Code</figcaption>
+        </figure>
+        <figure class="about-icon about-icon--pencil">
+          <figcaption>Design</figcaption>
+        </figure>
+        <figure><img src="./img/headshot.jpg" alt="a profile picture of me" class="profile-pic"></figure>
+        <figure class="about-icon about-icon--responsive">
+          <figcaption>Cross-Device</figcaption>
+        </figure>
+        <figure class="about-icon about-icon--wordpress">
+          <figcaption>WordPress</figcaption>
+        </figure>
       </section>
       <p class="about__opener">Hi, I'm Radek.</p>
-      <p class="about__intro">I am a Web Developer and Designer from the Czech Republic. I have been steering my career towards Front-End Development for about a year now and I am currently rolling out my first websites. Support me on my journey by checking out my work or dropping me a message about what you like or what I should improve.</p>
+      <p class="about__intro">I am an aspiring Web Developer and Designer from the Czech Republic. Make sure to check out my work and let me know what you think.</p>
     </section>
-    <section id="work" class="work section-diagonal section-diagonal--downwards section-diagonal--upwards">
-      <h1 class="work__title">My Latest Work</h1>
+    <section class="work section-diagonal section-diagonal--downwards section-diagonal--upwards">
+      <h1 id="work" class="section-title section-title--work">My Latest Work</h1>
       <section class="work__example">
-        <div class="img"></div>
-        <div class="description"></div>
+        <div class="screen-set">
+          <div class="screen-set__canvas"></div>
+        </div>
+        <div class="work__example__desc">
+          <h2>Auto Caravan Sport s.r.o.</h2>
+          <p>A static website with the purpose of stating business intent as well as a personal presentation of the client. To reflect this, I opted for one-page design with a number of sub-pages for 'learn-more' content. Coded semantically in HTML5, modularly in CSS3, with custom Jquery and one external JS plugin for image sliding. It is fully responsive with the design accommodating different screen sizes accordingly.</p><a href="http://autocaravansport.cz">Go To Site</a>
+        </div>
       </section>
     </section>
     <section id="contact" class="contact">
-      <h1 class="contact__title">Contact</h1>
+      <h1 class="section-title section-title--contact">Contact</h1>
+      <hr>
+      <p class="contact__email">radek.palisa@gmail.com</p>
+      <hr>
+      <p class="contact__findme">find me on</p>
+      <div class="social-icons"><a href="https://www.linkedin.com/in/radek-palisa-96332886" class="icon">
+          <div class="icon__canvas icon__canvas--linkedin"></div></a><a href="https://github.com/Radek-Palisa" class="icon">
+          <div class="icon__canvas icon__canvas--github"></div></a><a href="https://www.instagram.com/radekpalisa" class="icon">
+          <div class="icon__canvas icon__canvas--instagram"></div></a></div>
     </section>
     <footer class="footer section-diagonal section-diagonal--downwards">
-      <p class="footer__copyright">2016 All Rights Reserved</p>
+      <p class="footer__copyright">Copyright 2016 Radek Palisa</p>
       <ul class="nav__list">
         <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>

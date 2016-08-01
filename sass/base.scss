@@ -1,3 +1,7 @@
+// Breakpoints
+$mobile : 26em;
+$laptop : 48em;
+
 // to be set to 91% opacity
 $dark-blue : #282839;
 $dark-purple : #330033;
@@ -6,6 +10,7 @@ $dark-green : #063406;
 $white : #fff;
 $highlight-color : #f2b632; // yellowish
 $dark-grey : #677077;
+$text-color: #4e4e53;
 $light-grey : #b5b5b7;
 
 $font-primary: montserrat, sans-serif;
@@ -20,6 +25,11 @@ html {
 body {
 	font-family: $font-primary;
 	line-height: 1.5;
+	font-size: 14px;
+
+	@media (min-width: 48em) {
+		font-size: 16px;
+	}
 }
 
 h1 {
@@ -40,9 +50,11 @@ h1 {
 	display: block;
 	width: 105%;
 	height: 100px;
+	height: 7.5vw;
 	position: absolute;
 	background-color: white;
 	bottom: -50px;
+	bottom: -3.7vw;
 	transform: rotateZ(-4deg)
 }
 
@@ -51,8 +63,19 @@ h1 {
 	display: block;
 	width: 105%;
 	height: 100px;
+	height: 7.5vw;
 	position: absolute;
 	background-color: white;
 	top: -50px;
+	top: -3.7vw;
 	transform: rotateZ(4deg)
+}
+
+// Section Titles
+
+.section-title {
+	padding: 70px 0 50px;
+	font-size: 1em;
+	color: $text-color;
+	letter-spacing: 0.5px;
 }

@@ -1,12 +1,43 @@
 .header
-	background: linear-gradient(rgba($dark-blue, .91), rgba($dark-blue, .91)), url('./img/lake.jpg') 
+	background: linear-gradient(rgba($dark-blue, .91), rgba($dark-blue, .91)), url('./img/lake_q0.jpg')
 	background-size: cover
+	padding-bottom: 7.5vw
 
 .nav
-	display: flex
-	align-items: center
-	justify-content: space-between
-	padding: 1.5em 30px
+	@media (min-width: $mobile)
+		display: flex
+		align-items: center
+		justify-content: space-between
+		flex-wrap: wrap
+	padding: 1em 17px
+
+.lang
+	position: relative
+	text-align: center
+	padding: 0.5em 13px
+
+	&__not-available
+		display: none
+		position: absolute
+		width: 280px
+		left: 50%
+		top: 110%
+		padding: 22px
+		background-color: rgb(136, 136, 136)
+		border-top-right-radius: 15px
+		border-bottom-right-radius: 15px
+		border-bottom-left-radius: 15px
+
+		p
+			text-align: left
+			font-style: italic
+			font-size: 0.9em
+			color: white
+			line-height: 1.8
+			margin: 0
+
+	&:hover .lang__not-available
+		display: block
 
 .lang__btn
 	padding: 0
@@ -27,31 +58,37 @@
 
 .nav__list
 	display: flex
+	justify-content: center
 	margin: 0
-	padding-left: 0
+	padding: 0.5em 0 0
 	list-style: none
 
 	li a
-		margin-left: 25px
+		margin: 0 13px
 		text-transform: uppercase
 		text-decoration: none
 		font-size: 0.9em
-		color: $white
 		color: rgba($white, .9)
 
 		&:hover
-			color: $highlight-color
-
+			color: $white
 .logo
 	text-align: center
-	padding: 100px 0 150px
+	padding: 50px 0 70px
+	
+	@media (min-width: $mobile)
+		padding: 100px 0 70px
 
 	&__title
 		display: inline-block
-		padding: 7px 34px
+		padding: 0.2em 1.2em
 		border: 2px solid $highlight-color
 		color: $highlight-color
 		letter-spacing: 1px
+		font-size: 1.7em
+
+		@media (min-width: $mobile)
+			font-size: 2em
 
 	&__desc
 		text-transform: uppercase

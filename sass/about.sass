@@ -1,32 +1,62 @@
-.about
-	color: #4e4e53
-	padding-bottom: 50px
-
-.about__title
-	padding: 50px 0
-	font-size: 1em
+.about p
+	color: $text-color
 
 .about__graphic
 	display: flex
 	align-items: center
 	justify-content: center
+	flex-wrap: wrap
 
-	.circle
-		width: 90px
-		height: 90px
-		margin: 15px
-		border-radius: 50%
-		background-color: $highlight-color
+	figure:nth-of-type(3)
+		margin: 0
 
-	.circle-big
-		width: 150px
-		height: 150px	
-		background-color: $light-grey
+.about-icon
+	display: none
+
+@media (min-width: 42em)
+	.about-icon
+		display: block
+		background-image: url('./img/sprite.svg')
+		background-size: 438px 75px
+		position: relative
+		width: 75px
+		height: 75px
+		margin: 20px
+
+		figcaption
+			position: absolute
+			bottom: -30px
+			left: 50%
+			transform: translateX(-50%)
+			width: 90px
+			text-align: center
+			text-transform: uppercase
+			color: rgba($text-color, .6)
+			font-size: 0.7em
+
+		&--code
+			background-position: 0 0
+
+		&--pencil
+			background-position: -75px 0
+
+		&--responsive
+			background-position: -150px 0
+
+		&--wordpress
+			background-position: -225px 0
+
+.profile-pic
+	width: 150px
+	height: 150px
+	margin: 0 15px
 
 .about__opener
 	text-align: center
+	margin-top: 50px
 
 .about__intro
-	max-width: 26em
+	max-width: 28em
 	margin: 0 auto
 	text-align: center
+	padding: 0 1em 70px

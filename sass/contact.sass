@@ -1,4 +1,56 @@
-.contact__title
-	padding: 50px 0
-	font-size: 1em
-	color: #4e4e53
+
+.contact hr 
+	width: 15px
+
+.contact p 
+	text-align: center
+
+.contact__email
+	color: $highlight-color
+	font-size: 1.5em
+	margin: 50px 0
+
+	@media (min-width: $mobile)
+		font-size: 2em
+
+.contact__findme
+	font-style: italic
+	color: $text-color
+	margin: 50px 0 30px
+
+.social-icons
+	display: flex 
+	align-items: center
+	justify-content: center
+	padding-bottom: 50px
+
+	.icon
+		margin: 20px
+		width: 46px
+		height: 46px
+		transition: all 0.2s ease-in-out
+		border-radius: 10px
+		overflow: visible	
+
+		&:hover
+			background-color: $highlight-color
+			transition: all 0.2s ease-in-out
+
+		
+		&__canvas
+			width: 46px
+			height: 46px
+			background-image: url('./img/sprite.svg')
+			background-size: 438px 75px
+			
+			&--linkedin
+				background-position: -300px 0
+
+			&--github
+				background-position: -346px 0
+
+			&--instagram
+				background-position: -392px 0
+
+	a:nth-of-type(2)
+		border-radius: 50%

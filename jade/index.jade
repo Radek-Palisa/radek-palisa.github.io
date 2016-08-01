@@ -7,6 +7,8 @@ block body
 				button.lang__btn.lang__btn--activated En
 				button.lang__btn Cs
 				button.lang__btn Gr
+				.lang__not-available
+					p Oups, sorry this option is not yet available, but it's coming soon!
 
 			ul.nav__list
 				li: a(href="#about") About
@@ -17,27 +19,47 @@ block body
 			p.logo__desc Web Design &amp Development
 
 	section.about#about
-		h1.about__title About
+		h1.section-title.section-title--about About
 		section.about__graphic
-			.circle
-			.circle
-			.circle.circle-big
-			.circle
-			.circle
+			figure.about-icon.about-icon--code
+				figcaption Code
+			figure.about-icon.about-icon--pencil
+				figcaption Design
+			figure
+				img.profile-pic(src="./img/headshot.jpg", alt="a profile picture of me")
+			figure.about-icon.about-icon--responsive
+				figcaption Cross-Device
+			figure.about-icon.about-icon--wordpress
+				figcaption WordPress
 		p.about__opener Hi, I'm Radek.
-		p.about__intro I am a Web Developer and Designer from the Czech Republic. I have been steering my career towards Front-End Development for about a year now and I am currently rolling out my first websites. Support me on my journey by checking out my work or dropping me a message about what you like or what I should improve.
+		p.about__intro I am an aspiring Web Developer and Designer from the Czech Republic. Make sure to check out my work and let me know what you think.
 
-	section.work.section-diagonal.section-diagonal--downwards.section-diagonal--upwards#work
-		h1.work__title My Latest Work
+	section.work.section-diagonal.section-diagonal--downwards.section-diagonal--upwards
+		h1.section-title.section-title--work#work My Latest Work
 		section.work__example
-			.img
-			.description
+			.screen-set
+				.screen-set__canvas
+			.work__example__desc
+				h2 Auto Caravan Sport s.r.o.
+				p A static website with the purpose of stating business intent as well as a personal presentation of the client. To reflect this, I opted for one-page design with a number of sub-pages for 'learn-more' content. Coded semantically in HTML5, modularly in CSS3, with custom Jquery and one external JS plugin for image sliding. It is fully responsive with the design accommodating different screen sizes accordingly.
+				a(href="http://autocaravansport.cz") Go To Site
 
 	section.contact#contact
-		h1.contact__title Contact
+		h1.section-title.section-title--contact Contact
+		hr
+		p.contact__email radek.palisa@gmail.com
+		hr
+		p.contact__findme find me on
+		.social-icons
+			a.icon(href="https://www.linkedin.com/in/radek-palisa-96332886")
+				.icon__canvas.icon__canvas--linkedin
+			a.icon(href="https://github.com/Radek-Palisa")
+				.icon__canvas.icon__canvas--github
+			a.icon(href="https://www.instagram.com/radekpalisa")
+				.icon__canvas.icon__canvas--instagram
 
 	footer.footer.section-diagonal.section-diagonal--downwards
-		p.footer__copyright 2016 All Rights Reserved
+		p.footer__copyright Copyright 2016 Radek Palisa
 		ul.nav__list
 			li: a(href="#about") About
 			li: a(href="#work") Work

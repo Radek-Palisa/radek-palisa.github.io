@@ -1,9 +1,71 @@
 .work
-	background: linear-gradient(rgba($dark-purple, .91), rgba($dark-purple, .91)), url('./img/lake.jpg') 
+	background: linear-gradient(rgba($dark-purple, .91), rgba($dark-purple, .91)), url('./img/sunset_q0.jpg') 
 	background-size: cover
 	background-position: center
+	padding-bottom: 7.5vw
+	padding-top: 7.5vw
 
-.work__title
-	padding: 130px 0
-	font-size: 1em
+.section-title--work
 	color: white
+
+.work__example
+	display: flex 
+	justify-content: center
+	align-items: flex-start
+	flex-wrap: wrap
+	padding-bottom: 70px
+
+.screen-set
+	max-width: 418px
+	width: 100%
+	height: auto
+	margin: 0 55px 35px 10px
+
+	@media (max-width: $laptop)
+		padding: 0 1em
+		margin: 0 0 35px
+
+	&__canvas
+		width: 100%
+		padding-bottom: 62%
+		background-image: url('./img/screen-set.png')
+		background-size: cover
+
+		@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)
+			background-image: url('./img/screen-set_2x.png')
+
+.work__example__desc
+	max-width: 27em
+	margin: 0 1em
+	
+	@media (min-width: $laptop)
+		margin: 0 10px 0 55px
+
+	h2
+		margin-top: 0
+		font-size: 1em
+		color: $highlight-color
+		text-align: center
+
+	p 
+		color: $white
+		line-height: 1.8
+
+	a 
+		display: block
+		width: 110px
+		margin: 2em auto 0
+		text-align: center
+		color: $highlight-color
+		text-decoration: none
+		text-transform: uppercase
+		font-weight: bold
+		border: 1px solid $highlight-color
+		padding: 5px 10px
+		font-size: 12px
+		transition: all 0.1s ease-in-out
+
+		&:hover
+			background-color: $highlight-color
+			color: #000
+			transition: all 0.1s ease-in-out
