@@ -1,0 +1,65 @@
+extends partials/skeleton.jade
+
+block body
+	header.header.section-diagonal.section-diagonal--upwards
+		nav.nav
+			ul.lang-options
+				li: a(href="../index.html").lang__btn En
+				li: a(href="../cs/index.html").lang__btn Cs
+				li: a(href="index.html").lang__btn.lang__btn--activated Ελ
+
+			ul.nav__list
+				li: a(href="#about") Σχετικά
+				li: a(href="#work") Δουλειά
+				li: a(href="#contact") Επικοινωνία
+		.logo
+			h1.logo__title Radek Palisa
+			p.logo__desc Web Design &amp Development
+
+	section.about#about
+		h1.section-title.section-title--about Σχετικά
+		section.about__graphic
+			figure.about-icon.about-icon--code
+				figcaption Code
+			figure.about-icon.about-icon--pencil
+				figcaption Design
+			figure
+				img.profile-pic(src="../img/headshot.jpg", alt="a profile picture of me")
+			figure.about-icon.about-icon--responsive
+				figcaption Cross-Device
+			figure.about-icon.about-icon--wordpress
+				figcaption WordPress
+		p.about__opener Γειά, είμαι ο Radek.
+		p.about__intro Είμαι εξελισσόμενος web developer και designer από την Τσεχία. Πάρτε μια ιδέα της δουλειάς μου και μοιραστείτε τις σκέψεις σας μαζί μου.
+
+	section.work.section-diagonal.section-diagonal--downwards.section-diagonal--upwards
+		h1.section-title.section-title--work#work Η τελευταία μου δουλειά
+		section.work__example
+			.screen-set
+				.screen-set__canvas
+			.work__example__desc
+				h2 Auto Caravan Sport s.r.o.
+				p Μιά στατική ιστοσελίδα που έχει ως στόχο της να υποδεικνύει επαγγελματικό περιεχόμενο καθώς επίσης και προσωπική παρουσίαση του εκάστοτε πελάτη. Για την υλοποίησή της, επέλεξα να σχεδίασω μία μακροσκελή σελίδα συνοδευόμενη από έναν συγκεκριμένο αριθμό υποσελίδων για επιπρόσθετες πληροφορίες. Η κωδικοποίηση της σελίδας έγινε σε HTML5, διαρθρωμένο σπό CSS3, με πρσωπική επεξεργασία στην Jquery και ένα εξωτερικό JS plugin για την παρουσίαση των εικόνων. Η λειτουργία και ο σχεδιασμός της σελίδας ανταποκρίνονται πλήρως σε όλα τα μεγέθη διαφορετικών οθονών.
+				.work__example__desc__link				
+					a(href="http://autocaravansport.cz") Δείτε την σελίδα
+
+	section.contact#contact
+		h1.section-title.section-title--contact Επικοινωνία
+		hr
+		p.contact__email radek.palisa@gmail.com
+		hr
+		p.contact__findme Βρείτε με στα ακόλουθα
+		.social-icons
+			a.icon(href="https://www.linkedin.com/in/radek-palisa-96332886")
+				.icon__canvas.icon__canvas--linkedin
+			a.icon(href="https://github.com/Radek-Palisa")
+				.icon__canvas.icon__canvas--github
+			a.icon(href="https://www.instagram.com/radekpalisa")
+				.icon__canvas.icon__canvas--instagram
+
+	footer.footer.section-diagonal.section-diagonal--downwards
+		p.footer__copyright Copyright 2016 Radek Palisa
+		ul.nav__list
+			li: a(href="#about") Σχετικά
+			li: a(href="#work") Δουλειά
+			li: a(href="#contact") Επικοινωνία

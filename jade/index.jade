@@ -3,12 +3,10 @@ extends partials/skeleton.jade
 block body
 	header.header.section-diagonal.section-diagonal--upwards
 		nav.nav
-			.lang
-				button.lang__btn.lang__btn--activated En
-				button.lang__btn Cs
-				button.lang__btn Gr
-				.lang__not-available
-					p Oups, sorry this option is not yet available, but it's coming soon!
+			ul.lang-options
+				li: a(href="index.html").lang__btn.lang__btn--activated En
+				li: a(href="cs/index.html").lang__btn Cs
+				li: a(href="gr/index.html").lang__btn Ελ
 
 			ul.nav__list
 				li: a(href="#about") About
@@ -42,7 +40,8 @@ block body
 			.work__example__desc
 				h2 Auto Caravan Sport s.r.o.
 				p A static website with the purpose of stating business intent as well as a personal presentation of the client. To reflect this, I opted for one-page design with a number of sub-pages for 'learn-more' content. Coded semantically in HTML5, modularly in CSS3, with custom Jquery and one external JS plugin for image sliding. It is fully responsive with the design accommodating different screen sizes accordingly.
-				a(href="http://autocaravansport.cz") Go To Site
+				.work__example__desc__link
+					a(href="http://autocaravansport.cz") Go To Site
 
 	section.contact#contact
 		h1.section-title.section-title--contact Contact

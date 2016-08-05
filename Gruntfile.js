@@ -23,7 +23,9 @@ module.exports = function(grunt) {
 			  pretty: true,
 			},
 			files: {
-				'index.html' : 'jade/index.jade'
+				'index.html' : 'jade/index.jade',
+				'cs/index.html' : 'jade/cs/index.jade',
+				'gr/index.html' : 'jade/gr/index.jade'
 			}
 		  }
 		},
@@ -44,17 +46,17 @@ module.exports = function(grunt) {
 		  },
 		
 		  // Concatenate CSS when done with development
-		  /*
+		  
 		  dist: {
 			options: {
 			  style: 'compressed',
 			  sourcemap: 'none',
 			},
 			files: {
-			  'style-min.css': 'sass/style.scss'
+			  'style-min.css': 'sass/main.scss'
 			}
 		  }			
-		  */
+		  
 		},
 
 		/**
@@ -84,7 +86,7 @@ module.exports = function(grunt) {
 			},
 			css: {
 				files: '**/*.{scss,sass}',
-				tasks: ['sass'] // add ,'autoprefixer' here to switch it on, its off cos it disables source-mapping
+				tasks: ['sass','autoprefixer'] // add ,'autoprefixer' here to switch it on, its off cos it disables source-mapping
 			},
 			html: {
 				files: '*.html',

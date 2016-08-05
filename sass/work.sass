@@ -12,6 +12,7 @@
 	display: flex 
 	justify-content: center
 	align-items: flex-start
+	align-items: center
 	flex-wrap: wrap
 	padding-bottom: 70px
 
@@ -46,26 +47,30 @@
 		font-size: 1em
 		color: $highlight-color
 		text-align: center
+		font-family: Montserrat, sans-serif
 
 	p 
 		color: $white
 		line-height: 1.8
+		font-weight: 300
 
-	a 
-		display: block
-		width: 110px
+	&__link
 		margin: 2em auto 0
 		text-align: center
-		color: $highlight-color
-		text-decoration: none
-		text-transform: uppercase
-		font-weight: bold
-		border: 1px solid $highlight-color
-		padding: 5px 10px
-		font-size: 12px
-		transition: all 0.1s ease-in-out
 
-		&:hover
-			background-color: $highlight-color
-			color: #000
+		a
+			text-align: center
+			color: $highlight-color
+			text-decoration: none
+			text-transform: uppercase
+			font-weight: bold
+			border: 1px solid $highlight-color
+			padding: 8px 14px
+			font-size: 12px
 			transition: all 0.1s ease-in-out
+			letter-spacing: 0.9px
+
+			&:hover
+				background-color: $highlight-color
+				color: #000
+				transition: all 0.1s ease-in-out

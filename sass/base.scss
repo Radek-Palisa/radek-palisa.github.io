@@ -13,8 +13,6 @@ $dark-grey : #677077;
 $text-color: #4e4e53;
 $light-grey : #b5b5b7;
 
-$font-primary: montserrat, sans-serif;
-
 html {
   box-sizing: border-box;
 }
@@ -23,7 +21,7 @@ html {
 }
 
 body {
-	font-family: $font-primary;
+	font-family: 'Roboto', sans-serif;
 	line-height: 1.5;
 	font-size: 14px;
 
@@ -75,7 +73,10 @@ h1 {
 
 .section-title {
 	padding: 70px 0 50px;
-	font-size: 1em;
 	color: $text-color;
-	letter-spacing: 0.5px;
+	letter-spacing: 0.03125em;
+}
+
+html[lang="en"] .section-title {
+	font-family: Montserrat, sans-serif;
 }
