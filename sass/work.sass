@@ -11,7 +11,6 @@
 .work__example
 	display: flex 
 	justify-content: center
-	align-items: flex-start
 	align-items: center
 	flex-wrap: wrap
 	padding-bottom: 70px
@@ -22,7 +21,7 @@
 	height: auto
 	margin: 0 55px 35px 10px
 
-	@media (max-width: $laptop)
+	@media (max-width: 65em) // before it wraps
 		padding: 0 1em
 		margin: 0 0 35px
 
@@ -35,8 +34,16 @@
 		@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)
 			background-image: url('./img/screen-set_2x.png')
 
-.work__example__desc
+html[lang="en"] .work__example__desc
 	max-width: 27em
+
+html[lang="cs"] .work__example__desc
+	max-width: 26em
+
+html[lang="el"] .work__example__desc
+	max-width: 29em
+
+.work__example__desc
 	margin: 0 1em
 	
 	@media (min-width: $laptop)
@@ -74,3 +81,5 @@
 				background-color: $highlight-color
 				color: #000
 				transition: all 0.1s ease-in-out
+
+				VSE25CZ

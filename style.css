@@ -677,9 +677,6 @@ html[lang="en"] .nav__list li a {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-align-items: flex-start;
-      -ms-flex-align: start;
-          align-items: flex-start;
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
@@ -695,7 +692,7 @@ html[lang="en"] .nav__list li a {
   height: auto;
   margin: 0 55px 35px 10px;
 }
-@media (max-width: 48em) {
+@media (max-width: 65em) {
   .screen-set {
     padding: 0 1em;
     margin: 0 0 35px;
@@ -713,8 +710,19 @@ html[lang="en"] .nav__list li a {
   }
 }
 
-.work__example__desc {
+html[lang="en"] .work__example__desc {
   max-width: 27em;
+}
+
+html[lang="cs"] .work__example__desc {
+  max-width: 26em;
+}
+
+html[lang="el"] .work__example__desc {
+  max-width: 29em;
+}
+
+.work__example__desc {
   margin: 0 1em;
 }
 @media (min-width: 48em) {
@@ -760,23 +768,36 @@ html[lang="en"] .nav__list li a {
   width: 15px;
 }
 
-.contact p {
-  text-align: center;
-  font-family: Montserrat, sans-serif;
-}
-
 .contact__email {
-  color: #f2b632;
-  font-size: 1.5em;
+  text-align: center;
   margin: 50px 0;
 }
+.contact__email a {
+  color: #f2b632;
+  font-size: 1.5em;
+  text-decoration: none;
+  font-family: Montserrat, sans-serif;
+  transition: all 100ms ease-in-out;
+}
 @media (min-width: 26em) {
-  .contact__email {
+  .contact__email a {
     font-size: 2em;
   }
 }
+.contact__email a:hover {
+  letter-spacing: 0.04em;
+}
+.contact__email a::-moz-selection {
+  background-color: #f2b632;
+  color: #000;
+}
+.contact__email a::selection {
+  background-color: #f2b632;
+  color: #000;
+}
 
 .contact__findme {
+  text-align: center;
   font-style: italic;
   color: #4e4e53;
   margin: 50px 0 30px;

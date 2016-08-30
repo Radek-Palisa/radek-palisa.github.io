@@ -2,19 +2,29 @@
 .contact hr 
 	width: 15px
 
-.contact p 
-	text-align: center
-	font-family: Montserrat, sans-serif
-
 .contact__email
-	color: $highlight-color
-	font-size: 1.5em
+	text-align: center
 	margin: 50px 0
 
-	@media (min-width: $mobile)
-		font-size: 2em
+	a
+		color: $highlight-color
+		font-size: 1.5em
+		text-decoration: none
+		font-family: Montserrat, sans-serif
+		transition: all 100ms ease-in-out
+
+		@media (min-width: $mobile)
+			font-size: 2em
+
+		&:hover
+			letter-spacing: 0.04em
+
+		&::selection 
+			background-color: $highlight-color
+			color: #000
 
 .contact__findme
+	text-align: center
 	font-style: italic
 	color: $text-color
 	margin: 50px 0 30px
