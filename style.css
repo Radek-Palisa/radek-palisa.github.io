@@ -433,8 +433,7 @@ h1 {
   background-color: white;
   bottom: -50px;
   bottom: -3.7vw;
-  -webkit-transform: rotateZ(-4deg);
-          transform: rotateZ(-4deg);
+  transform: rotateZ(-4deg);
 }
 
 .section-diagonal--downwards::after {
@@ -447,8 +446,7 @@ h1 {
   background-color: white;
   top: -50px;
   top: -3.7vw;
-  -webkit-transform: rotateZ(4deg);
-          transform: rotateZ(4deg);
+  transform: rotateZ(4deg);
 }
 
 .section-title {
@@ -472,18 +470,14 @@ html[lang="en"] .section-title {
 }
 @media (min-width: 26em) {
   .nav {
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
+    -ms-flex-align: center;
+        align-items: center;
+    -ms-flex-pack: justify;
+        justify-content: space-between;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
   }
 }
 
@@ -516,12 +510,10 @@ html[lang="en"] .section-title {
 }
 
 .nav__list {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   margin: 0;
   padding: 0.5em 0 0;
   list-style: none;
@@ -581,18 +573,14 @@ html[lang="en"] .nav__list li a {
 }
 
 .about__graphic {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   font-family: Montserrat, sans-serif;
 }
 .about__graphic figure:nth-of-type(3) {
@@ -602,12 +590,21 @@ html[lang="en"] .nav__list li a {
 .about-icon {
   display: none;
 }
+.about-icon > i {
+  color: #666f76;
+  font-size: 30px;
+}
 
 @media (min-width: 42em) {
   .about-icon {
-    display: block;
-    background-image: url("./img/sprite.svg");
-    background-size: 438px 75px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+    background-color: #f2b632;
+    border-radius: 50%;
     position: relative;
     width: 75px;
     height: 75px;
@@ -617,8 +614,7 @@ html[lang="en"] .nav__list li a {
     position: absolute;
     bottom: -30px;
     left: 50%;
-    -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
+    transform: translateX(-50%);
     width: 90px;
     text-align: center;
     text-transform: uppercase;
@@ -634,8 +630,14 @@ html[lang="en"] .nav__list li a {
   .about-icon--responsive {
     background-position: -150px 0;
   }
+  .about-icon--responsive > i {
+    font-weight: bold;
+  }
   .about-icon--wordpress {
     background-position: -225px 0;
+  }
+  .about-icon--wordpress > i {
+    font-weight: bold;
   }
 }
 .profile-pic {
@@ -671,18 +673,14 @@ html[lang="en"] .nav__list li a {
 }
 
 .work__example {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   padding-bottom: 70px;
 }
 
@@ -804,15 +802,12 @@ html[lang="el"] .work__example__desc {
 }
 
 .social-icons {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   padding-bottom: 50px;
 }
 .social-icons .icon {
@@ -861,8 +856,7 @@ html[lang="el"] .work__example__desc {
 }
 
 .footer ul.nav__list {
-  -webkit-justify-content: flex-start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
   padding: 0 17px;
 }
