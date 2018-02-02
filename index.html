@@ -43,15 +43,23 @@
       <p class="about__intro">I’m a Web Developer from the Czech Republic, currently part of eBay’s EU WebDev team. In my spare, I’m keeping up with the ever changing landscape of the web industry.</p>
     </section>
     <section class="work section-diagonal section-diagonal--downwards section-diagonal--upwards">
-      <h2 id="work" class="section-title section-title--work">My Latest Work</h2>
-      <section class="work__example">
-        <div class="screen-set">
-          <div class="screen-set__canvas"></div>
+      <h2 id="work" class="section-title section-title--work">My story</h2>
+      <section class="accordion">
+        <button id="ctrl1" aria-controls="sec1" aria-expanded="true" class="accordion-trigger"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" width="120px"></button>
+        <div id="sec1" labelledby="ctrl1" role="region" aria-hidden="false" class="accordion-content">
+          <p>I came out of university with a degree, which allowed me having elaborated discourses with anyone willing to listen at a local pub, but which proved rather difficult to get me a job. Starting work in Data Management in SAP was a first step to a remedy. Having learned the ins and outs of the job, however, the tasks became very monotonous and repetitive. After a brief mid-life crisis in my mid-twenties, I discovered coding.</p>
         </div>
-        <div class="work__example__desc">
-          <h3>Auto Caravan Sport s.r.o.</h3>
-          <p>A static website with the purpose of stating business intent as well as a personal presentation of the client. To reflect this, I opted for one-page design with a number of sub-pages for 'learn-more' content. Coded semantically in HTML5, modularly in CSS3, with custom Jquery and one external JS plugin for image sliding. It is fully responsive with the design accommodating different screen sizes accordingly.</p>
-          <div class="work__example__desc__link"><a href="http://autocaravansport.cz">Go To Site</a></div>
+        <button id="ctrl2" aria-controls="sec2" aria-expanded="false" class="accordion-trigger"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" width="120px"></button>
+        <div id="sec2" labelledby="ctrl2" role="region" aria-hidden="true" class="accordion-content">
+          <p>After a year of intensive, daily code learning in my spare time, I decided to leave SAP. I wanted  to be coding full-time and knew that I needed experience. Fortunately, my father was imprudent enough to entrust me with building a web presence for his small business, Auto Caravan Sport. Finally, I found myself applying previously learned design and UX principles on a real project. I was writing for-production code and dealing with various browser quirks. Internet Explorer started haunting me in my dreams.</p>
+        </div>
+        <button id="ctrl3" aria-controls="sec3" aria-expanded="false" class="accordion-trigger"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" width="120px"></button>
+        <div id="sec3" labelledby="ctrl3" role="region" aria-hidden="true" class="accordion-content">
+          <p>Alensa was a turning point for me. After slightly more than one year, I progressed from did-you-try-to-turn-it-off-and-on type of knowledge to a full time job as a Front-End Developer. At Alensa, I started connecting the dots about server-client communication, fetching and ajaxing, and got introduced to PHP. I took part in the shaping the UI/UX of a successful e-commerce company. Above all, I was increasingly diving into Javascript both at work and in my spare time.</p>
+        </div>
+        <button id="ctrl4" aria-controls="sec4" aria-expanded="false" class="accordion-trigger"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" width="120px"></button>
+        <div id="sec4" labelledby="ctrl4" role="region" aria-hidden="true" class="accordion-content">
+          <p>I am currently part of eBay’s EU WebDev team. we support Global Marketing operations with coding landing pages for campaigns. At eBay, we strive to deliver best possible user experience without leaving the impaired users behind. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lor</p>
         </div>
       </section>
     </section>
@@ -69,6 +77,6 @@
     <footer class="footer section-diagonal section-diagonal--downwards">
       <p class="footer__copyright">&#169; 2018 Radek Palisa</p>
     </footer>
-    
+    <script src="js/functions.js"></script>
   </body>
 </html>

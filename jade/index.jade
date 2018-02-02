@@ -37,15 +37,32 @@ block body
 		p.about__intro I’m a Web Developer from the Czech Republic, currently part of eBay’s EU WebDev team. In my spare, I’m keeping up with the ever changing landscape of the web industry.
 
 	section.work.section-diagonal.section-diagonal--downwards.section-diagonal--upwards
-		h2.section-title.section-title--work#work My Latest Work
-		section.work__example
-			.screen-set
-				.screen-set__canvas
-			.work__example__desc
-				h3 Auto Caravan Sport s.r.o.
-				p A static website with the purpose of stating business intent as well as a personal presentation of the client. To reflect this, I opted for one-page design with a number of sub-pages for 'learn-more' content. Coded semantically in HTML5, modularly in CSS3, with custom Jquery and one external JS plugin for image sliding. It is fully responsive with the design accommodating different screen sizes accordingly.
-				.work__example__desc__link
-					a(href="http://autocaravansport.cz") Go To Site
+		h2.section-title.section-title--work#work My story
+		//- section.work__example
+		//- 	.screen-set
+		//- 		.screen-set__canvas
+		//- 	.work__example__desc
+		//- 		h3 Auto Caravan Sport s.r.o.
+		//- 		p A static website with the purpose of stating business intent as well as a personal presentation of the client. To reflect this, I opted for one-page design with a number of sub-pages for 'learn-more' content. Coded semantically in HTML5, modularly in CSS3, with custom Jquery and one external JS plugin for image sliding. It is fully responsive with the design accommodating different screen sizes accordingly.
+		//- 		.work__example__desc__link
+		//- 			a(href="http://autocaravansport.cz") Go To Site
+		section.accordion
+			button#ctrl1.accordion-trigger(aria-controls="sec1", aria-expanded="true")
+				img(src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg", width="120px")
+			#sec1.accordion-content(labelledby="ctrl1", role="region", aria-hidden="false")
+				p I came out of university with a degree, which allowed me having elaborated discourses with anyone willing to listen at a local pub, but which proved rather difficult to get me a job. Starting work in Data Management in SAP was a first step to a remedy. Having learned the ins and outs of the job, however, the tasks became very monotonous and repetitive. After a brief mid-life crisis in my mid-twenties, I discovered coding.
+			button#ctrl2.accordion-trigger(aria-controls="sec2", aria-expanded="false")
+				img(src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg", width="120px")
+			#sec2.accordion-content(labelledby="ctrl2", role="region", aria-hidden="true")
+				p After a year of intensive, daily code learning in my spare time, I decided to leave SAP. I wanted  to be coding full-time and knew that I needed experience. Fortunately, my father was imprudent enough to entrust me with building a web presence for his small business, Auto Caravan Sport. Finally, I found myself applying previously learned design and UX principles on a real project. I was writing for-production code and dealing with various browser quirks. Internet Explorer started haunting me in my dreams.
+			button#ctrl3.accordion-trigger(aria-controls="sec3", aria-expanded="false")
+				img(src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg", width="120px")
+			#sec3.accordion-content(labelledby="ctrl3", role="region", aria-hidden="true")
+				p Alensa was a turning point for me. After slightly more than one year, I progressed from did-you-try-to-turn-it-off-and-on type of knowledge to a full time job as a Front-End Developer. At Alensa, I started connecting the dots about server-client communication, fetching and ajaxing, and got introduced to PHP. I took part in the shaping the UI/UX of a successful e-commerce company. Above all, I was increasingly diving into Javascript both at work and in my spare time.
+			button#ctrl4.accordion-trigger(aria-controls="sec4", aria-expanded="false")
+				img(src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg", width="120px")
+			#sec4.accordion-content(labelledby="ctrl4", role="region", aria-hidden="true")
+				p I am currently part of eBay’s EU WebDev team. we support Global Marketing operations with coding landing pages for campaigns. At eBay, we strive to deliver best possible user experience without leaving the impaired users behind. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lor
 
 	section.contact#contact
 		h2.section-title.section-title--contact Contact

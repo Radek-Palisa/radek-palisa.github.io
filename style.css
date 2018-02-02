@@ -585,7 +585,7 @@ html[lang="en"] .section-title {
 }
 
 .work {
-  background: linear-gradient(rgba(51, 0, 51, 0.91), rgba(51, 0, 51, 0.91)), url("./img/sunset_q0.jpg");
+  background: linear-gradient(rgba(51, 0, 51, 0.91), rgba(51, 0, 51, 0.91)), url("http://radekpalisa.com/img/sunset_q0.jpg");
   background-size: cover;
   background-position: center;
   padding-bottom: 7.5vw;
@@ -684,6 +684,72 @@ html[lang="el"] .work__example__desc {
   background-color: #f2b632;
   color: #000;
   transition: all 0.1s ease-in-out;
+}
+
+.accordion {
+  margin: 0 auto;
+  max-width: 500px;
+  min-height: 625px;
+  position: relative;
+}
+
+.liner {
+  z-index: 1;
+  content: '';
+  position: absolute;
+  top: 15px;
+  width: 2px;
+  left: 5px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8) 80%, rgba(255, 255, 255, 0.6));
+}
+
+.accordion-content {
+  color: #fff;
+  padding-left: 40px;
+  font-family: sans-serif;
+  line-height: 1.8;
+  font-weight: 300;
+}
+.accordion-content > p {
+  margin: 16px 0;
+}
+
+.accordion-content {
+  overflow: hidden;
+}
+
+.accordion-trigger {
+  padding: 10px 20px 10px 40px;
+  margin: 5px 0;
+  border: none;
+  position: relative;
+  background-color: transparent;
+  outline: none;
+}
+
+.accordion-trigger::before {
+  z-index: 2;
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #330033;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: scale 0.5s ease-in-out;
+}
+
+.accordion-trigger[aria-expanded="true"]::before {
+  background-color: white;
+  transform: scale(1) !important;
+}
+
+.accordion-trigger:focus::before {
+  border: 1px solid white;
+  transform: scale(1.2);
 }
 
 .contact hr {
