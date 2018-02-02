@@ -590,12 +590,21 @@ html[lang="en"] .nav__list li a {
 .about-icon {
   display: none;
 }
+.about-icon > i {
+  color: #666f76;
+  font-size: 30px;
+}
 
 @media (min-width: 42em) {
   .about-icon {
-    display: block;
-    background-image: url("./img/sprite.svg");
-    background-size: 438px 75px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+    background-color: #f2b632;
+    border-radius: 50%;
     position: relative;
     width: 75px;
     height: 75px;
@@ -621,8 +630,14 @@ html[lang="en"] .nav__list li a {
   .about-icon--responsive {
     background-position: -150px 0;
   }
+  .about-icon--responsive > i {
+    font-weight: bold;
+  }
   .about-icon--wordpress {
     background-position: -225px 0;
+  }
+  .about-icon--wordpress > i {
+    font-weight: bold;
   }
 }
 .profile-pic {
