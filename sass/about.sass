@@ -14,11 +14,17 @@
 .about-icon
 	display: none
 
+	> i 
+		color: #666f76
+		font-size: 30px
+
 @media (min-width: 42em)
 	.about-icon
-		display: block
-		background-image: url('./img/sprite.svg')
-		background-size: 438px 75px
+		display: flex
+		justify-content: center
+		align-items: center
+		background-color: #f2b632
+		border-radius: 50%
 		position: relative
 		width: 75px
 		height: 75px
@@ -44,8 +50,14 @@
 		&--responsive
 			background-position: -150px 0
 
+			> i 	
+				font-weight: bold
+
 		&--wordpress
 			background-position: -225px 0
+
+			> i 	
+				font-weight: bold
 
 .profile-pic
 	width: 150px
@@ -58,7 +70,7 @@
 	font-weight: 500
 
 .about__intro
-	max-width: 28em
+	max-width: 25em
 	margin: 0 auto
 	text-align: center
 	padding: 0 1em 70px

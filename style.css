@@ -460,92 +460,16 @@ html[lang="en"] .section-title {
 }
 
 .header {
-  background: linear-gradient(rgba(40, 40, 57, 0.91), rgba(40, 40, 57, 0.91)), url("./img/lake_q0.jpg");
+  background: linear-gradient(rgba(40, 40, 57, 0.91), rgba(40, 40, 57, 0.91)), url("http://radekpalisa.com/img/lake_q0.jpg");
   background-size: cover;
   padding-bottom: 7.5vw;
-}
-
-.nav {
-  padding: 1em 17px;
-}
-@media (min-width: 26em) {
-  .nav {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-        align-items: center;
-    -ms-flex-pack: justify;
-        justify-content: space-between;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-  }
-}
-
-.lang-options {
-  position: relative;
-  text-align: center;
-  margin: 0;
-  padding: 0.5em 13px;
-}
-.lang-options li {
-  display: inline-block;
-}
-.lang-options li:first-of-type::after, .lang-options li:nth-of-type(2)::after {
-  content: "|";
-  color: rgba(255, 255, 255, 0.6);
-  margin-left: 7px;
-  margin-right: 3px;
-  font-size: 0.9em;
-}
-
-.lang__btn {
-  padding: 0;
-  font-size: 0.9em;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 0.05em;
-}
-.lang__btn--activated, .lang__btn:hover {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.nav__list {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
-  margin: 0;
-  padding: 0.5em 0 0;
-  list-style: none;
-}
-.nav__list li a {
-  margin: 0 13px;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-size: 0.9em;
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 600;
-  letter-spacing: 0.9px;
-}
-.nav__list li a:hover {
-  color: #fff;
-}
-
-html[lang="en"] .nav__list li a {
-  font-family: Montserrat;
-  font-weight: normal;
-  letter-spacing: normal;
 }
 
 .logo {
   text-align: center;
   padding: 50px 0 70px;
+  padding: calc(7.5vw + 70px) 0 70px;
   font-family: Montserrat, sans-serif;
-}
-@media (min-width: 26em) {
-  .logo {
-    padding: 100px 0 70px;
-  }
 }
 .logo__title {
   display: inline-block;
@@ -590,12 +514,21 @@ html[lang="en"] .nav__list li a {
 .about-icon {
   display: none;
 }
+.about-icon > i {
+  color: #666f76;
+  font-size: 30px;
+}
 
 @media (min-width: 42em) {
   .about-icon {
-    display: block;
-    background-image: url("./img/sprite.svg");
-    background-size: 438px 75px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+    background-color: #f2b632;
+    border-radius: 50%;
     position: relative;
     width: 75px;
     height: 75px;
@@ -621,8 +554,14 @@ html[lang="en"] .nav__list li a {
   .about-icon--responsive {
     background-position: -150px 0;
   }
+  .about-icon--responsive > i {
+    font-weight: bold;
+  }
   .about-icon--wordpress {
     background-position: -225px 0;
+  }
+  .about-icon--wordpress > i {
+    font-weight: bold;
   }
 }
 .profile-pic {
@@ -638,7 +577,7 @@ html[lang="en"] .nav__list li a {
 }
 
 .about__intro {
-  max-width: 28em;
+  max-width: 25em;
   margin: 0 auto;
   text-align: center;
   padding: 0 1em 70px;
@@ -827,7 +766,7 @@ html[lang="el"] .work__example__desc {
 }
 
 .footer {
-  background: linear-gradient(rgba(6, 52, 6, 0.91), rgba(6, 52, 6, 0.91)), url("./img/forest_q0_2600w.jpg");
+  background: linear-gradient(rgba(6, 52, 6, 0.91), rgba(6, 52, 6, 0.91)), url("http://radekpalisa.com/img/forest_q0_2600w.jpg");
   background-size: cover;
   background-position: center center;
   padding-bottom: 2em;
@@ -835,13 +774,17 @@ html[lang="el"] .work__example__desc {
 }
 
 .footer__copyright {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.4);
   text-transform: uppercase;
-  padding-left: 30px;
+  padding-left: 2em;
+  margin: 0;
+  padding-top: 35px;
 }
-
-.footer ul.nav__list {
-  -ms-flex-pack: start;
-      justify-content: flex-start;
-  padding: 0 17px;
+@media (min-width: 48em) {
+  .footer__copyright {
+    color: rgba(255, 255, 255, 0.3);
+    padding-left: 3em;
+    padding-top: 19px;
+    padding-bottom: 16px;
+  }
 }

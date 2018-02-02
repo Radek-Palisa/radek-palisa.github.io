@@ -1,15 +1,23 @@
 .footer
-	background: linear-gradient(rgba($dark-green, .91), rgba($dark-green, .91)), url('./img/forest_q0_2600w.jpg') 
+	background: linear-gradient(rgba($dark-green, .91), rgba($dark-green, .91)), url('http://radekpalisa.com/img/forest_q0_2600w.jpg') 
 	background-size: cover
 	background-position: center center
 	padding-bottom: 2em
 	padding-top: 7.5vw
 
 .footer__copyright
-	color: rgba($white, .2)
+	color: rgba($white, .4)
 	text-transform: uppercase
-	padding-left: 30px
+	padding-left: 2em
+	margin: 0
+	padding-top: 35px
 
-.footer ul.nav__list 
-	justify-content: flex-start
-	padding: 0 17px
+	@media (min-width: $laptop)
+		color: rgba($white, .3)
+		padding-left: 3em
+		padding-top: 19px
+		padding-bottom: 16px
+
+// .footer ul.nav__list 
+// 	justify-content: flex-start
+// 	padding: 0 17px
