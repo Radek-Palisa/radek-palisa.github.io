@@ -739,17 +739,35 @@ html[lang="el"] .work__example__desc {
   margin-top: -10px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.6);
-  transition: scale 0.5s ease-in-out;
+}
+
+.accordion-trigger::after {
+  z-index: 2;
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.6);
+  left: 2px;
+  top: 50%;
+  margin-top: -8px;
+  border-radius: 50%;
 }
 
 .accordion-trigger[aria-expanded="true"]::before {
+  border: 1px solid white;
+  transform: scale(1);
+}
+.accordion-trigger[aria-expanded="true"]::after {
   background-color: white;
-  transform: scale(1) !important;
 }
 
 .accordion-trigger:focus::before {
   border: 1px solid white;
-  transform: scale(1.2);
+  transform: scale(1.15);
+}
+.accordion-trigger:focus::after {
+  background-color: white;
 }
 
 .contact hr {
