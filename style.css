@@ -596,100 +596,28 @@ html[lang="en"] .section-title {
   color: white;
 }
 
-.work__example {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
-  -ms-flex-align: center;
-      align-items: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  padding-bottom: 70px;
+.logo-sap {
+  height: 45px;
+}
+.logo-acs {
+  height: 25px;
+}
+.logo-alensa {
+  height: 37px;
+}
+.logo-ebay {
+  width: 96px;
 }
 
-.screen-set {
-  max-width: 418px;
-  width: 100%;
-  height: auto;
-  margin: 0 55px 35px 10px;
-}
-@media (max-width: 65em) {
-  .screen-set {
-    padding: 0 1em;
-    margin: 0 0 35px;
-  }
-}
-.screen-set__canvas {
-  width: 100%;
-  padding-bottom: 62%;
-  background-image: url("./img/screen-set.png");
-  background-size: cover;
-}
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-  .screen-set__canvas {
-    background-image: url("./img/screen-set_2x.png");
-  }
-}
-
-html[lang="en"] .work__example__desc {
-  max-width: 27em;
-}
-
-html[lang="cs"] .work__example__desc {
-  max-width: 26em;
-}
-
-html[lang="el"] .work__example__desc {
-  max-width: 29em;
-}
-
-.work__example__desc {
-  margin: 0 1em;
-}
-@media (min-width: 48em) {
-  .work__example__desc {
-    margin: 0 10px 0 55px;
-  }
-}
-.work__example__desc h3 {
-  margin-top: 0;
-  font-size: 1em;
-  color: #f2b632;
-  text-align: center;
-  font-family: Montserrat, sans-serif;
-}
-.work__example__desc p {
-  color: #fff;
-  line-height: 1.8;
-  font-weight: 300;
-}
-.work__example__desc__link {
-  margin: 2em auto 0;
-  text-align: center;
-}
-.work__example__desc__link a {
-  text-align: center;
-  color: #f2b632;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: bold;
-  border: 1px solid #f2b632;
-  padding: 8px 14px;
-  font-size: 12px;
-  transition: all 0.1s ease-in-out;
-  letter-spacing: 0.9px;
-}
-.work__example__desc__link a:hover {
-  background-color: #f2b632;
-  color: #000;
-  transition: all 0.1s ease-in-out;
+.accordion-outer {
+  min-height: 540px;
+  margin-bottom: 50px;
 }
 
 .accordion {
   margin: 0 auto;
-  max-width: 500px;
-  min-height: 625px;
+  padding: 0 14px;
+  max-width: 540px;
   position: relative;
 }
 
@@ -699,19 +627,25 @@ html[lang="el"] .work__example__desc {
   position: absolute;
   top: 15px;
   width: 2px;
-  left: 5px;
+  left: 19px;
   background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8) 80%, rgba(255, 255, 255, 0.6));
 }
 
 .accordion-content {
   color: #fff;
-  padding-left: 40px;
+  padding-left: 30px;
   font-family: sans-serif;
   line-height: 1.8;
   font-weight: 300;
 }
+@media (min-width: 48em) {
+  .accordion-content {
+    padding-left: 40px;
+  }
+}
 .accordion-content > p {
-  margin: 16px 0;
+  padding: 6px 0 16px;
+  margin: 0;
 }
 
 .accordion-content {
@@ -719,12 +653,17 @@ html[lang="el"] .work__example__desc {
 }
 
 .accordion-trigger {
-  padding: 10px 20px 10px 40px;
+  padding: 10px 20px 10px 30px;
   margin: 5px 0;
   border: none;
   position: relative;
   background-color: transparent;
   outline: none;
+}
+@media (min-width: 48em) {
+  .accordion-trigger {
+    padding: 10px 20px 10px 40px;
+  }
 }
 
 .accordion-trigger::before {

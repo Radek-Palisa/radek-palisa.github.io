@@ -1,24 +1,4 @@
-/*
-$(document).ready(function() {
-
-	$(function() {
-	  $('a[href*="#"]:not([href="#"])').click(function() {
-	    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-	      var target = $(this.hash);
-	      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-	      if (target.length) {
-	        $('html, body').animate({
-	          scrollTop: target.offset().top
-	        }, 800);
-	        return false;
-	      }
-	    }
-	  });
-	});
-});
-*/
-
-;(function (window, document) {
+(function (window, document) {
 
     "use strict";
 
@@ -40,7 +20,7 @@ $(document).ready(function() {
         });
     }
 
-    var _Squeezebox = function () {
+    var Accordion = function () {
         this.wrapperEl = '.accordion';
         this.headersClass = 'accordion-trigger';
         this.foldersClass = 'accordion-content';
@@ -48,20 +28,25 @@ $(document).ready(function() {
         this.debouncer = null;
     };
 
-    _Squeezebox.prototype = {
+    Accordion.prototype = {
         init: function () {
             var self = this;
-            this.wrapper = document.querySelectorAll(this.wrapperEl);
+            this.wrapper = document.querySelector(this.wrapperEl);
             this.controls = document.querySelectorAll('.' + this.headersClass);
             this.liner = document.createElement("div");
             this.liner.className = 'liner';
-            this.wrapper[0].insertBefore(this.liner, undefined)
+            this.wrapper.insertBefore(this.liner, undefined)
             this.linerStyle = this.liner.style;
 
-            Array.prototype.forEach.call(this.wrapper, function (wr, idx, node) {
-                self.getHeights(wr);
-                self.setListeners(wr);
-            });
+            var calculateHeight = (this.controls[this.controls.length -1].offsetHeight +
+                (parseFloat(window.getComputedStyle(this.controls[this.controls.length -1]).getPropertyValue('margin-top').replace('px', '')) * 2) +
+                parseFloat(window.getComputedStyle(this.controls[this.controls.length -1]).getPropertyValue('margin-bottom').replace('px', ''))) / 2 + 
+                parseFloat(window.getComputedStyle(this.liner).getPropertyValue('top').replace('px', '')) + 4;
+            
+            this.linerHeightAdjust = calculateHeight;
+            console.log(calculateHeight);
+            this.getHeights(this.wrapper);
+            this.setListeners(this.wrapper);
 
             this.linerStyle.transition = 'height ' + this.speed;
         },
@@ -113,7 +98,7 @@ $(document).ready(function() {
             }
 
             if (folders[folders.length - 1].getAttribute('aria-hidden') !== 'false') {
-                self.linerStyle.height = self.wrapper[0].offsetHeight - 125 + 'px';
+                self.linerStyle.height = wr.offsetHeight - self.linerHeightAdjust + 'px';
             }
         },
         addTran: function (el) {
@@ -131,16 +116,12 @@ $(document).ready(function() {
                 this.linerStyle.height = newLinerHeight + 'px';
             }
             elst.maxHeight = 0;
-            //elst.paddingTop = 0;
-            //elst.paddingBottom = 0;
 
             el.setAttribute('aria-hidden', 'true');
         },
         showEl: function (el, growLiner) {
             var elst = el.style;
             elst.maxHeight = el.getAttribute('data-sq_h') + 'px';
-            //elst.paddingTop = el.getAttribute('data-sq_pt') + 'px';
-            //elst.paddingBottom = el.getAttribute('data-sq_pb') + 'px';
 
             if (growLiner) {
                 var newLinerHeight = parseFloat(this.linerStyle.height) +
@@ -152,7 +133,7 @@ $(document).ready(function() {
         },
         setListeners: function (wr) {
             var self = this;
-            // We attach only one listener per accordion and delegate the event listening
+
             wr.addEventListener('click', function (e) {
                 var el = e.target;
                 // check that the event bubbles up to the proper header.
@@ -182,10 +163,61 @@ $(document).ready(function() {
                     self.getHeights(wr)
                 }, 50)
             });
+
+            // Bind keyboard behaviors on the main accordion container
+            var triggers = Array.prototype.slice.call(wr.querySelectorAll('.accordion-trigger'));
+            wr.addEventListener('keydown', function (event) {
+                var target = event.target;
+                var key = event.which.toString();
+                // 33 = Page Up, 34 = Page Down
+                var ctrlModifier = (event.ctrlKey && key.match(/33|34/));
+
+                // Is this coming from an accordion header?
+                if (target.classList.contains('accordion-trigger')) {
+                    // Up/ Down arrow and Control + Page Up/ Page Down keyboard operations
+                    // 38 = Up, 40 = Down
+                    if (key.match(/38|40/) || ctrlModifier) {
+                        var index = triggers.indexOf(target);
+                        var direction = (key.match(/34|40/)) ? 1 : -1;
+                        var length = triggers.length;
+                        var newIndex = (index + length + direction) % length;
+
+                        triggers[newIndex].focus();
+
+                        event.preventDefault();
+                    }
+                    else if (key.match(/35|36/)) {
+                        // 35 = End, 36 = Home keyboard operations
+                        switch (key) {
+                            // Go to first accordion
+                            case '36':
+                                triggers[0].focus();
+                                break;
+                            // Go to last accordion
+                            case '35':
+                                triggers[triggers.length - 1].focus();
+                                break;
+                        }
+
+                        event.preventDefault();
+                    }
+                }
+                else if (ctrlModifier) {
+                    // Control + Page Up/ Page Down keyboard operations
+                    // Catches events that happen inside of panels
+                    panels.forEach(function (panel, index) {
+                        if (panel.contains(target)) {
+                            triggers[index].focus();
+
+                            event.preventDefault();
+                        }
+                    });
+                }
+            });
         },
         toggle: function (el) {
             var elId = el.getAttribute('id');
-            var nowExpanded = this.wrapper[0].querySelector('div[aria-hidden="false"]');
+            var nowExpanded = this.wrapper.querySelector('div[aria-hidden="false"]');
             var nowExpandedId = nowExpanded.getAttribute('id')
             if (elId === 'sec4') { // last being clicked
                 this.hideEl(nowExpanded, true)
@@ -202,61 +234,11 @@ $(document).ready(function() {
         }
     };
 
-    window.Squeezebox = _Squeezebox;
+    window.Accordion = Accordion;
 
 })(window, document);
 
-var accordion = new Squeezebox();
+
+
+var accordion = new Accordion();
 accordion.init();
-
-// Bind keyboard behaviors on the main accordion container
-var accordion = document.querySelector('.accordion');
-var triggers = Array.prototype.slice.call(accordion.querySelectorAll('.accordion-trigger'));
-accordion.addEventListener('keydown', function (event) {
-    var target = event.target;
-    var key = event.which.toString();
-    // 33 = Page Up, 34 = Page Down
-    var ctrlModifier = (event.ctrlKey && key.match(/33|34/));
-
-    // Is this coming from an accordion header?
-    if (target.classList.contains('accordion-trigger')) {
-        // Up/ Down arrow and Control + Page Up/ Page Down keyboard operations
-        // 38 = Up, 40 = Down
-        if (key.match(/38|40/) || ctrlModifier) {
-            var index = triggers.indexOf(target);
-            var direction = (key.match(/34|40/)) ? 1 : -1;
-            var length = triggers.length;
-            var newIndex = (index + length + direction) % length;
-
-            triggers[newIndex].focus();
-
-            event.preventDefault();
-        }
-        else if (key.match(/35|36/)) {
-            // 35 = End, 36 = Home keyboard operations
-            switch (key) {
-                // Go to first accordion
-                case '36':
-                    triggers[0].focus();
-                    break;
-                // Go to last accordion
-                case '35':
-                    triggers[triggers.length - 1].focus();
-                    break;
-            }
-
-            event.preventDefault();
-        }
-    }
-    else if (ctrlModifier) {
-        // Control + Page Up/ Page Down keyboard operations
-        // Catches events that happen inside of panels
-        panels.forEach(function (panel, index) {
-            if (panel.contains(target)) {
-                triggers[index].focus();
-
-                event.preventDefault();
-            }
-        });
-    }
-});

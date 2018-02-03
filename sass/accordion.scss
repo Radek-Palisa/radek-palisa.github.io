@@ -1,8 +1,12 @@
+.accordion-outer {
+    min-height: 540px;
+    margin-bottom: 50px; 
+}
 
 .accordion {
     margin: 0 auto;
-    max-width: 500px;
-    min-height: 625px;
+    padding: 0 14px;
+    max-width: 540px;
     position: relative;
 }
   
@@ -12,19 +16,23 @@
     position: absolute;
     top: 15px;
     width: 2px;
-    left: 5px;
+    left: 19px;
     background-image: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.8) 80%, rgba(255,255,255,.6));
 }
-  
+
 .accordion-content {
     color: $white;
-    padding-left: 40px;
+    padding-left: 30px;
+    @media (min-width: $laptop) {
+        padding-left: 40px;
+    }
     font-family: sans-serif;
     line-height: 1.8;
     font-weight: 300;
     
     > p {
-        margin: 16px 0;
+        padding: 6px 0 16px;
+        margin: 0;
     }
 }
   
@@ -33,12 +41,16 @@
 }
   
 .accordion-trigger { 
-    padding: 10px 20px 10px 40px;
+    padding: 10px 20px 10px 30px;
     margin: 5px 0;
     border: none;
     position: relative;
     background-color: transparent;
-    outline: none
+    outline: none;
+
+    @media (min-width: $laptop) {
+        padding: 10px 20px 10px 40px;
+    }
   }
   
 .accordion-trigger::before {
