@@ -4,6 +4,7 @@
 
     // *** UTILS ****
     function getStyle(el, prop) {
+        console.log(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''))
         return parseFloat(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''));
 
     }
@@ -69,7 +70,7 @@
             while (fl--) {
                 el = folders[fl],
                     elst = el.style;
-                elst.position = 'absolute';
+                //elst.position = 'absolute';
                 elst.visibility = 'hidden';
                 elst.display = '';
                 elst.transition = '';
