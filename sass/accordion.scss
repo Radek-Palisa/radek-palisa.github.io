@@ -6,7 +6,7 @@
 .accordion {
     margin: 0 auto;
     padding: 0 14px;
-    max-width: 540px;
+    max-width: 625px;
     position: relative;
 }
   
@@ -18,13 +18,17 @@
     width: 2px;
     left: 19px;
     background-image: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.8) 80%, rgba(255,255,255,.6));
+
+    @media (min-width: $laptop) {
+        left: 104px;
+    }
 }
 
 .accordion-content {
     color: $white;
     padding-left: 30px;
     @media (min-width: $laptop) {
-        padding-left: 40px;
+        padding-left: 125px;
     }
     font-family: sans-serif;
     line-height: 1.8;
@@ -33,6 +37,15 @@
     > p {
         padding: 6px 0 16px;
         margin: 0;
+
+        > span {
+            display: block;
+            margin-bottom: 1em;
+
+            @media (min-width: $laptop) {
+                display: none;
+            }
+        }
     }
 }
   
@@ -49,56 +62,79 @@
     outline: none;
 
     @media (min-width: $laptop) {
-        padding: 10px 20px 10px 40px;
+        padding: 10px 20px 10px 125px;
+    }
+
+    > span {
+        display: none;
+        width: 65px;
+        color: rgba(white, 0.6);
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -15px;
+        font-size: 14px;
+        text-align: right;
+
+        @media (min-width: $laptop) {
+            display: block;
+        }
     }
   }
   
-.accordion-trigger::before {
-    z-index: 2;
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: rgba($dark-purple, 1);
-    left: 0;
-    top: 50%;
-    margin-top: -10px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.6);
-    //transition: transform 0.15s ease-in-out
+.accordion-trigger {
   
-}
-.accordion-trigger::after {
-    z-index: 2;
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background-color: rgba(white, .6);
-    left: 2px;
-    top: 50%;
-    margin-top: -8px;
-    border-radius: 50%;
+    &::before, &::after {
+        z-index: 2;
+        content: '';
+        position: absolute;
+        top: 50%;
+        border-radius: 50%;
+    }
+    &::before {
+        width: 12px;
+        height: 12px;
+        background-color: rgba($dark-purple, 1);
+        left: 0;
+        margin-top: -10px;
+        border: 1px solid rgba(255,255,255,.6);
+
+        @media (min-width: $laptop) {
+            left: 85px;
+        }
+    }
+    &::after {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(white, .6);
+        left: 2px;
+        margin-top: -8px;
+
+        @media (min-width: $laptop) {
+            left: 87px;
+        }
+    }
 }
   
 .accordion-trigger[aria-expanded="true"] {
     
     &::before {
-        //background-color: white;
         border: 1px solid rgba(255,255,255,1);
-        transform: scale(1); // !important;
+        transform: scale(1); //!important;
     }
 
     &::after {
         background-color: rgba(white, 1);
     }
+
+    > span {
+        color: rgba(white, 1);
+        //transform: scale(1) //!important;
+    }
   }
 
 .accordion-trigger:focus {
 
-    // > img {
-    //     transform: scale(1.05);  
-    // } 
     &::before {
         //box-shadow: 0 0 15px 0px #ffffff6e;
         border: 1px solid rgba(255,255,255,1);
@@ -106,6 +142,11 @@
     }
     &::after {
         background-color: rgba(white, 1);
+    }
+
+    > span {
+        color: rgba(white, 1);
+        transform: scale(1.1);
     }
 }
   

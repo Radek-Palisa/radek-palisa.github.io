@@ -4,7 +4,6 @@
 
     // *** UTILS ****
     function getStyle(el, prop) {
-        console.log(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''))
         return parseFloat(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''));
 
     }
@@ -45,7 +44,6 @@
                 parseFloat(window.getComputedStyle(this.liner).getPropertyValue('top').replace('px', '')) + 4;
             
             this.linerHeightAdjust = calculateHeight;
-            console.log(calculateHeight);
             this.getHeights(this.wrapper);
             this.setListeners(this.wrapper);
 

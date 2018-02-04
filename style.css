@@ -617,7 +617,7 @@ html[lang="en"] .section-title {
 .accordion {
   margin: 0 auto;
   padding: 0 14px;
-  max-width: 540px;
+  max-width: 625px;
   position: relative;
 }
 
@@ -630,6 +630,11 @@ html[lang="en"] .section-title {
   left: 19px;
   background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8) 80%, rgba(255, 255, 255, 0.6));
 }
+@media (min-width: 48em) {
+  .liner {
+    left: 104px;
+  }
+}
 
 .accordion-content {
   color: #fff;
@@ -640,12 +645,21 @@ html[lang="en"] .section-title {
 }
 @media (min-width: 48em) {
   .accordion-content {
-    padding-left: 40px;
+    padding-left: 125px;
   }
 }
 .accordion-content > p {
   padding: 6px 0 16px;
   margin: 0;
+}
+.accordion-content > p > span {
+  display: block;
+  margin-bottom: 1em;
+}
+@media (min-width: 48em) {
+  .accordion-content > p > span {
+    display: none;
+  }
 }
 
 .accordion-content {
@@ -662,35 +676,57 @@ html[lang="en"] .section-title {
 }
 @media (min-width: 48em) {
   .accordion-trigger {
-    padding: 10px 20px 10px 40px;
+    padding: 10px 20px 10px 125px;
+  }
+}
+.accordion-trigger > span {
+  display: none;
+  width: 65px;
+  color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -15px;
+  font-size: 14px;
+  text-align: right;
+}
+@media (min-width: 48em) {
+  .accordion-trigger > span {
+    display: block;
   }
 }
 
-.accordion-trigger::before {
+.accordion-trigger::before, .accordion-trigger::after {
   z-index: 2;
   content: '';
   position: absolute;
+  top: 50%;
+  border-radius: 50%;
+}
+.accordion-trigger::before {
   width: 12px;
   height: 12px;
   background-color: #330033;
   left: 0;
-  top: 50%;
   margin-top: -10px;
-  border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
-
+@media (min-width: 48em) {
+  .accordion-trigger::before {
+    left: 85px;
+  }
+}
 .accordion-trigger::after {
-  z-index: 2;
-  content: '';
-  position: absolute;
   width: 8px;
   height: 8px;
   background-color: rgba(255, 255, 255, 0.6);
   left: 2px;
-  top: 50%;
   margin-top: -8px;
-  border-radius: 50%;
+}
+@media (min-width: 48em) {
+  .accordion-trigger::after {
+    left: 87px;
+  }
 }
 
 .accordion-trigger[aria-expanded="true"]::before {
@@ -700,6 +736,9 @@ html[lang="en"] .section-title {
 .accordion-trigger[aria-expanded="true"]::after {
   background-color: white;
 }
+.accordion-trigger[aria-expanded="true"] > span {
+  color: white;
+}
 
 .accordion-trigger:focus::before {
   border: 1px solid white;
@@ -707,6 +746,10 @@ html[lang="en"] .section-title {
 }
 .accordion-trigger:focus::after {
   background-color: white;
+}
+.accordion-trigger:focus > span {
+  color: white;
+  transform: scale(1.1);
 }
 
 .contact hr {
