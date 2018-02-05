@@ -1,3 +1,5 @@
+
+
 (function (window, document) {
 
     "use strict";
@@ -238,7 +240,7 @@
 
 })(window, document);
 
-
-
-var accordion = new Accordion();
-accordion.init();
+window.onload = function() {
+    var accordion = new Accordion();
+    accordion.init();
+}
