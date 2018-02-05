@@ -32,7 +32,7 @@
         init: function () {
             var self = this;
             this.wrapper = document.querySelector(this.wrapperEl);
-            this.controls = document.querySelectorAll('.' + this.headersClass);
+            this.controls = Array.prototype.slice.call(document.querySelectorAll('.' + this.headersClass));
             this.liner = document.createElement("div");
             this.liner.className = 'liner';
             this.wrapper.insertBefore(this.liner, undefined)
@@ -149,6 +149,7 @@
                 if (el.getAttribute('aria-expanded') === 'true') {
                     return
                 }
+
                 self.controls.forEach(function (control) {
                     control.setAttribute('aria-expanded', 'false')
                 })
