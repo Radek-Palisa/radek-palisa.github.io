@@ -28,7 +28,17 @@ module.exports = function(grunt) {
 				'gr/index.html' : 'jade/gr/index.jade'
 			}
 		  }
-		},
+        },
+		/**
+		 * Uglify
+		 */        
+        uglify: {
+          my_target: {
+            files: {
+              'js/funcs-min.js': ['js/functions.js']
+            }
+          }
+        },
 
 		/**
 		 * Sass
@@ -92,12 +102,14 @@ module.exports = function(grunt) {
 				files: '*.html',
 			},
 			scripts: {
-				files: 'js/**/*.js',
+                files: 'js/functions.js',
+                tasks: ['uglify']
 			},
 		}, // watch
 
 	});
-	grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-contrib-jade');

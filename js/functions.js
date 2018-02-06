@@ -1,5 +1,3 @@
-
-
 (function (window, document) {
 
     "use strict";
@@ -49,7 +47,7 @@
             this.getHeights(this.wrapper);
             this.setListeners(this.wrapper);
 
-            this.linerStyle.transition = 'height ' + this.speed;
+            this.linerStyle.transition = 'height ' +  this.speed;
         },
 
         getHeights: function (wr) {
@@ -59,7 +57,7 @@
                 fl = folders.length,
                 el,
                 elst;
-
+ 
             // Getting height of hidden elements can be tricky.
             // We need to:
             // - make sure they DO NOT have display:none so they have actual height
@@ -132,33 +130,49 @@
 
             el.setAttribute('aria-hidden', 'false');
         },
+        clickHandler: function (e) {
+            var el = e.target;
+
+            if (!el.classList.contains(this.headersClass)) {
+                el = el.parentNode;
+            }
+
+            this.clickedEl = el;
+
+            if (el.getAttribute('aria-expanded') === 'true') {
+                return
+            }
+
+            this.controls.forEach(function (control) {
+                control.setAttribute('aria-expanded', 'false')
+            })
+		   
+            this.toggle(el.nextElementSibling);
+        },
+        toggle: function (el) {
+            var elId = el.getAttribute('id');
+            var nowExpanded = this.wrapper.querySelector('div[aria-hidden="false"]');
+            var nowExpandedId = nowExpanded.getAttribute('id')
+            if (elId === 'sec4') { // last being clicked
+                this.hideEl(nowExpanded, true)
+                this.showEl(el, false);
+            } else if (nowExpandedId === 'sec4') { // coming from last
+                this.hideEl(nowExpanded, false)
+                this.showEl(el, true);
+            } else {
+                this.hideEl(nowExpanded, true)
+                this.showEl(el, true);
+            }
+
+            this.clickedEl.setAttribute('aria-expanded', 'true');
+        },
         setListeners: function (wr) {
             var self = this;
 
-            wr.addEventListener('click', function (e) {
-                var el = e.target;
-                // check that the event bubbles up to the proper header.
-                while (el && !el.classList.contains(self.headersClass)) {
-                    el = el.parentNode;
-                    // stop bubbling after wrapper is met.
-                    if (el === wr) {
-                        return;
-                    }
-                }
-
-                self.clickedEl = el;
-
-                if (el.getAttribute('aria-expanded') === 'true') {
-                    return
-                }
-
-                self.controls.forEach(function (control) {
-                    control.setAttribute('aria-expanded', 'false')
-                })
-
-                // now el is = to the actual element we need the event to be bound to			   
-                self.toggle(el.nextElementSibling);
+            self.controls.forEach(function(ctrl) {
+                ctrl.addEventListener('click', self.clickHandler.bind(self))
             });
+
             window.addEventListener('resize', function () {
                 clearTimeout(this.debouncer)
                 this.debouncer = setTimeout(function () {
@@ -216,23 +230,6 @@
                     });
                 }
             });
-        },
-        toggle: function (el) {
-            var elId = el.getAttribute('id');
-            var nowExpanded = this.wrapper.querySelector('div[aria-hidden="false"]');
-            var nowExpandedId = nowExpanded.getAttribute('id')
-            if (elId === 'sec4') { // last being clicked
-                this.hideEl(nowExpanded, true)
-                this.showEl(el, false);
-            } else if (nowExpandedId === 'sec4') { // coming from last
-                this.hideEl(nowExpanded, false)
-                this.showEl(el, true);
-            } else {
-                this.hideEl(nowExpanded, true)
-                this.showEl(el, true);
-            }
-
-            this.clickedEl.setAttribute('aria-expanded', 'true');
         }
     };
 
