@@ -22,6 +22,7 @@
 
     var Accordion = function () {
         this.wrapperEl = '.accordion';
+        this.itemClass = 'accordion-item';
         this.headersClass = 'accordion-trigger';
         this.foldersClass = 'accordion-content';
         this.speed = '.5s';
@@ -32,6 +33,9 @@
         init: function () {
             var self = this;
             this.wrapper = document.querySelector(this.wrapperEl);
+            this.outerWrapper = document.querySelector('.accordion-outer');
+            this.items = Array.prototype.slice.call(document.querySelectorAll('.' + this.foldersClass));
+            this.itemHeights = [];
             this.controls = Array.prototype.slice.call(document.querySelectorAll('.' + this.headersClass));
             this.liner = document.createElement("div");
             this.liner.className = 'liner';
@@ -44,10 +48,17 @@
                 parseFloat(window.getComputedStyle(this.liner).getPropertyValue('top').replace('px', '')) + 4;
             
             this.linerHeightAdjust = calculateHeight;
+
             this.getHeights(this.wrapper);
             this.setListeners(this.wrapper);
 
             this.linerStyle.transition = 'height ' +  this.speed;
+
+            // this.items.forEach(function(item) {
+            //     console.log('hidden height ' + item.scrollHeight);
+            //     console.log('offset height ' + item.offsetHeight);
+            // })
+
         },
 
         getHeights: function (wr) {
@@ -57,14 +68,7 @@
                 fl = folders.length,
                 el,
                 elst;
- 
-            // Getting height of hidden elements can be tricky.
-            // We need to:
-            // - make sure they DO NOT have display:none so they have actual height
-            // - they remain invisibile (visibility:hidden)
-            // - they git position:absolute so they take no space at all
-            // - they have no transitions attached so that the changes in style take place immediately
-            // Then we can show the element (if hidden), record its styles, and backtrack again.
+
             while (fl--) {
                 el = folders[fl],
                     elst = el.style;
@@ -72,7 +76,7 @@
                 elst.visibility = 'hidden';
                 elst.display = '';
                 elst.transition = '';
-                // TODO: add will-change for better performance? http://dev.opera.com/articles/css-will-change-property/
+
 
                 // reset max height for resizing
                 el.style.maxHeight = 'none';
@@ -92,9 +96,25 @@
                     el.style.maxHeight = 0;
                 }
 
+                self.itemHeights.push(el.getAttribute('data-sq_h'));
+
 
                 self.addTran(el);
             }
+
+            var highestItem = self.itemHeights.reduce(function(a, b) {
+                return Math.max(a, b);
+            });
+            var controlsHeight = 0;
+            self.controls.forEach(function(ctr) {
+                var heightWithMargins = ctr.offsetHeight +
+                parseFloat(window.getComputedStyle(ctr).getPropertyValue('margin-top').replace('px', '')) +
+                parseFloat(window.getComputedStyle(ctr).getPropertyValue('margin-bottom').replace('px', ''))
+                controlsHeight = controlsHeight + heightWithMargins;
+            })
+            self.outerWrapper.style.minHeight = (controlsHeight + highestItem + 5) + 'px';
+            console.log(self.outerWrapper.style.minHeight)
+            
 
             if (folders[folders.length - 1].getAttribute('aria-hidden') !== 'false') {
                 self.linerStyle.height = wr.offsetHeight - self.linerHeightAdjust + 'px';
@@ -176,6 +196,7 @@
             window.addEventListener('resize', function () {
                 clearTimeout(this.debouncer)
                 this.debouncer = setTimeout(function () {
+                    self.itemHeights = [];
                     self.getHeights(wr)
                 }, 50)
             });

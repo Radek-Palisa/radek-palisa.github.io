@@ -1,13 +1,21 @@
 .accordion-outer {
-    min-height: 540px;
-    margin-bottom: 50px; 
+    position: relative;
+    margin-bottom: 50px;
+
+    > div {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 }
 
 .accordion {
+    position: relative;
     margin: 0 auto;
     padding: 0 14px;
     max-width: 625px;
-    position: relative;
 }
   
 .liner {
