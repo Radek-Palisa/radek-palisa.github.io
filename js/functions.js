@@ -7,11 +7,6 @@
         return parseFloat(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''));
 
     }
-    function setAttrs(el, attrs) {
-        for (var key in attrs) {
-            el.setAttribute(key, attrs[key]);
-        }
-    }
     // as in this case we only need to find siblings of the same class the cls argument
     // is needed every time for this function to work as there's no length checking before return;
     function siblings(el, cls) {
@@ -24,7 +19,7 @@
         this.wrapperEl = '.accordion';
         this.itemClass = 'accordion-item';
         this.headersClass = 'accordion-trigger';
-        this.foldersClass = 'accordion-content';
+        this.panelsClass = 'accordion-content';
         this.speed = '.5s';
         this.debouncer = null;
     };
@@ -34,91 +29,92 @@
             var self = this;
             this.wrapper = document.querySelector(this.wrapperEl);
             this.outerWrapper = document.querySelector('.accordion-outer');
-            this.items = Array.prototype.slice.call(document.querySelectorAll('.' + this.foldersClass));
+            this.items = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));
             this.itemHeights = [];
             this.controls = Array.prototype.slice.call(document.querySelectorAll('.' + this.headersClass));
+            this.panels = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));
+
             this.liner = document.createElement("div");
             this.liner.className = 'liner';
             this.wrapper.insertBefore(this.liner, undefined)
             this.linerStyle = this.liner.style;
 
             var calculateHeight = (this.controls[this.controls.length -1].offsetHeight +
-                (parseFloat(window.getComputedStyle(this.controls[this.controls.length -1]).getPropertyValue('margin-top').replace('px', '')) * 2) +
-                parseFloat(window.getComputedStyle(this.controls[this.controls.length -1]).getPropertyValue('margin-bottom').replace('px', ''))) / 2 + 
-                parseFloat(window.getComputedStyle(this.liner).getPropertyValue('top').replace('px', '')) + 4;
+                // (parseFloat(window.getComputedStyle(this.controls[this.controls.length -1]).getPropertyValue('margin-top').replace('px', '')) * 2) +
+                // parseFloat(window.getComputedStyle(this.controls[this.controls.length -1]).getPropertyValue('margin-bottom').replace('px', ''))) / 2 + 
+                // parseFloat(window.getComputedStyle(this.liner).getPropertyValue('top').replace('px', '')) + 4;
+                (getStyle(this.controls[this.controls.length -1],'margin-top') * 2) +
+                getStyle(this.controls[this.controls.length -1],'margin-bottom')) / 2 + 
+                getStyle(this.liner,'top') + 4;
             
             this.linerHeightAdjust = calculateHeight;
 
-            this.getHeights(this.wrapper);
+            this.getHeights();
             this.setListeners(this.wrapper);
 
             this.linerStyle.transition = 'height ' +  this.speed;
 
-            // this.items.forEach(function(item) {
-            //     console.log('hidden height ' + item.scrollHeight);
-            //     console.log('offset height ' + item.offsetHeight);
-            // })
-
         },
 
-        getHeights: function (wr) {
-            // Call this method  
-            var self = this,
-                folders = wr.getElementsByClassName(self.foldersClass),
-                fl = folders.length,
-                el,
-                elst;
+        getHeights: function () {
+ 
+            var self = this;
 
-            while (fl--) {
-                el = folders[fl],
-                    elst = el.style;
+            self.panels.forEach(function(panel) {
+
+                var panelStyle = panel.style;
+
+                // first toggle everything to visible to calculate the heights
                 //elst.position = 'absolute';
-                elst.visibility = 'hidden';
-                elst.display = '';
-                elst.transition = '';
-
-
+                panelStyle.visibility = 'hidden';
+                panelStyle.display = '';
+                panelStyle.transition = '';
                 // reset max height for resizing
-                el.style.maxHeight = 'none';
+                panelStyle.maxHeight = 'none';
 
-                setAttrs(el, {
-                    'data-sq_h': getStyle(el, 'height'),
-                });
+                // store the height of the panel in a attribute for further reference
+                var height = getStyle(panel, 'height');
+                panel.setAttribute('data-sq_h', height);
+                self.itemHeights.push(height);
 
-                //self.showEl(el);
-                elst.position = 'relative';
-                elst.visibility = 'visible';
 
-                // instead of checking for first, check if aria hidden, for resizing 
-                if (el.getAttribute('aria-hidden') === "false") {
-                    el.style.maxHeight = el.getAttribute('data-sq_h') + 'px';   //getStyle(el, 'height') + 'px';     
+                panelStyle.position = 'relative';
+                panelStyle.visibility = 'visible';
+
+                // hide all except the one with aria hidden true
+                if (panel.getAttribute('aria-hidden') === "false") {
+                    panel.style.maxHeight = panel.getAttribute('data-sq_h') + 'px';   //getStyle(el, 'height') + 'px';     
                 } else {
-                    el.style.maxHeight = 0;
+                    panel.style.maxHeight = 0;
                 }
 
-                self.itemHeights.push(el.getAttribute('data-sq_h'));
+                self.addTran(panel);
+            })
 
+            // set min height on the parent container
+            this.setMinHeight();
 
-                self.addTran(el);
+            // adjust liner height only if last item is not expanded
+            if (this.panels[this.panels.length - 1].getAttribute('aria-hidden') !== 'false') {
+                this.linerStyle.height = this.wrapper.offsetHeight - this.linerHeightAdjust + 'px';
             }
+        },
+        createLiner: function() {
 
-            var highestItem = self.itemHeights.reduce(function(a, b) {
+        },
+        setMinHeight: function () {
+            // get the highest number from the array
+            var highestItem = this.itemHeights.reduce(function(a, b) {
                 return Math.max(a, b);
             });
             var controlsHeight = 0;
-            self.controls.forEach(function(ctr) {
+            this.controls.forEach(function(ctr) {
                 var heightWithMargins = ctr.offsetHeight +
-                parseFloat(window.getComputedStyle(ctr).getPropertyValue('margin-top').replace('px', '')) +
-                parseFloat(window.getComputedStyle(ctr).getPropertyValue('margin-bottom').replace('px', ''))
+                getStyle(ctr, 'margin-top') +
+                getStyle(ctr, 'margin-bottom');
                 controlsHeight = controlsHeight + heightWithMargins;
             })
-            self.outerWrapper.style.minHeight = (controlsHeight + highestItem + 5) + 'px';
-            console.log(self.outerWrapper.style.minHeight)
-            
-
-            if (folders[folders.length - 1].getAttribute('aria-hidden') !== 'false') {
-                self.linerStyle.height = wr.offsetHeight - self.linerHeightAdjust + 'px';
-            }
+            this.outerWrapper.style.minHeight = (controlsHeight + highestItem + 5) + 'px';
         },
         addTran: function (el) {
             var self = this; 
