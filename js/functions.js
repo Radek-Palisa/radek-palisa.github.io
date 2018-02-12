@@ -1,7 +1,5 @@
 (function (window, document) {
 
-    "use strict";
-
     function getStyle(el, prop) {
         return parseFloat(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''));
 
