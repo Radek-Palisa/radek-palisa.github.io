@@ -51,7 +51,8 @@ module.exports = function(grunt) {
 		      sourcemap: 'auto',
 		    },
 		    files: {
-		      'style.css': 'sass/main.scss'
+              'style.css': 'sass/main.scss',
+              'style-head': 'sass/head.scss'
 		    }
 		  },
 		
