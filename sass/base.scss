@@ -46,19 +46,7 @@ h1, h2 {
 	overflow: hidden;
 }
 
-.section-diagonal--upwards::before {
-	content: '';
-	display: block;
-	width: 105%;
-	height: 100px;
-	height: 7.5vw;
-	position: absolute;
-	background-color: white;
-	bottom: -50px;
-	bottom: -3.7vw;
-	transform: rotateZ(-4deg)
-}
-
+.section-diagonal--upwards::before,
 .section-diagonal--downwards::after {
 	content: '';
 	display: block;
@@ -67,6 +55,15 @@ h1, h2 {
 	height: 7.5vw;
 	position: absolute;
 	background-color: white;
+}
+
+.section-diagonal--upwards::before {
+	bottom: -50px;
+	bottom: -3.7vw;
+	transform: rotateZ(-4deg)
+}
+
+.section-diagonal--downwards::after {
 	top: -50px;
 	top: -3.7vw;
 	transform: rotateZ(4deg)
@@ -75,11 +72,8 @@ h1, h2 {
 // Section Titles
 
 .section-title {
+    font-family: Montserrat, sans-serif;
 	padding: 70px 0 50px;
 	color: $text-color;
 	letter-spacing: 0.03125em;
-}
-
-html[lang="en"] .section-title {
-	font-family: Montserrat, sans-serif;
 }
