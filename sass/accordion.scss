@@ -2,12 +2,14 @@
     position: relative;
     margin-bottom: 50px;
 
-    > div {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+    &-js {
+        > div {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
     }
 }
 
@@ -89,7 +91,7 @@
     }
   }
   
-.accordion-trigger {
+.accordion-trigger[aria-expanded] {
   
     &::before, &::after {
         z-index: 2;

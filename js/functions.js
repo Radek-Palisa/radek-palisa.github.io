@@ -2,60 +2,82 @@
 
     "use strict";
 
-    // *** UTILS ****
     function getStyle(el, prop) {
         return parseFloat(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''));
 
     }
-    // as in this case we only need to find siblings of the same class the cls argument
-    // is needed every time for this function to work as there's no length checking before return;
-    function siblings(el, cls) {
-        return Array.prototype.filter.call(el.parentNode.children, function (child) {
-            return child !== el && child.classList.contains(cls);
-        });
-    }
 
     var Accordion = function () {
         this.wrapperEl = '.accordion';
+        this.outerWrapperClass = 'accordion-outer';
         this.itemClass = 'accordion-item';
         this.headersClass = 'accordion-trigger';
         this.panelsClass = 'accordion-content';
+        this.linerClass = 'liner';
         this.speed = '.5s';
-        this.debouncer = null;
     };
 
     Accordion.prototype = {
         init: function () {
-            var self = this;
+
+            // cache dom alements
+            this.outerWrapper = document.querySelector('.' + this.outerWrapperClass);
             this.wrapper = document.querySelector(this.wrapperEl);
-            this.outerWrapper = document.querySelector('.accordion-outer');
             this.items = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));
-            this.itemHeights = [];
             this.controls = Array.prototype.slice.call(document.querySelectorAll('.' + this.headersClass));
             this.panels = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));
+            
+            //
+            this.itemHeights = [];
+            this.debouncer = null;
 
+            this.outerWrapper.classList += ' ' + this.outerWrapperClass + '-js';
+            this.setAriaRoles()
+
+            // create and insert liner
             this.liner = document.createElement("div");
-            this.liner.className = 'liner';
+            this.liner.className = this.linerClass;
             this.wrapper.insertBefore(this.liner, undefined)
             this.linerStyle = this.liner.style;
-
-            var calculateHeight = (this.controls[this.controls.length -1].offsetHeight +
-                // (parseFloat(window.getComputedStyle(this.controls[this.controls.length -1]).getPropertyValue('margin-top').replace('px', '')) * 2) +
-                // parseFloat(window.getComputedStyle(this.controls[this.controls.length -1]).getPropertyValue('margin-bottom').replace('px', ''))) / 2 + 
-                // parseFloat(window.getComputedStyle(this.liner).getPropertyValue('top').replace('px', '')) + 4;
-                (getStyle(this.controls[this.controls.length -1],'margin-top') * 2) +
-                getStyle(this.controls[this.controls.length -1],'margin-bottom')) / 2 + 
+            // TODO: this is clumsy
+            var calculateHeight = ( 
+                    this.controls[this.controls.length - 1].offsetHeight +
+                    (getStyle(this.controls[this.controls.length - 1],'margin-top') * 2) +
+                    getStyle(this.controls[this.controls.length - 1],'margin-bottom')
+                ) / 2 +
                 getStyle(this.liner,'top') + 4;
-            
             this.linerHeightAdjust = calculateHeight;
+            this.linerStyle.transition = 'height ' +  this.speed;
+            // ----------------
 
             this.getHeights();
             this.setListeners(this.wrapper);
-
-            this.linerStyle.transition = 'height ' +  this.speed;
-
         },
+        setAriaRoles: function() {
+            this.controls.forEach(function(ctrl, i) {
+                ctrl.setAttribute('aria-controls', 'sec' + (i+1));
+                ctrl.setAttribute('id', 'ctrl' + (i+1));
 
+                if (i === 0) {
+                    ctrl.setAttribute('aria-expanded', 'true');
+                    ctrl.setAttribute('aria-disabled', 'true');
+                } else {
+                    ctrl.setAttribute('aria-expanded', 'false');
+                    ctrl.setAttribute('aria-disabled', 'false');
+                }
+            })
+            this.panels.forEach(function(ctrl, i) {
+                ctrl.setAttribute('labelledby', 'ctrl' + (i+1));
+                ctrl.setAttribute('id', 'sec' + (i+1));
+                ctrl.setAttribute('role', 'region');
+
+                if (i === 0) {
+                    ctrl.setAttribute('aria-hidden', 'false');
+                } else {
+                    ctrl.setAttribute('aria-hidden', 'true');
+                }
+            })
+        },
         getHeights: function () {
  
             var self = this;
@@ -74,7 +96,7 @@
 
                 // store the height of the panel in a attribute for further reference
                 var height = getStyle(panel, 'height');
-                panel.setAttribute('data-sq_h', height);
+                panel.setAttribute('data-height', height);
                 self.itemHeights.push(height);
 
 
@@ -83,7 +105,7 @@
 
                 // hide all except the one with aria hidden true
                 if (panel.getAttribute('aria-hidden') === "false") {
-                    panel.style.maxHeight = panel.getAttribute('data-sq_h') + 'px';   //getStyle(el, 'height') + 'px';     
+                    panel.style.maxHeight = panel.getAttribute('data-height') + 'px';   //getStyle(el, 'height') + 'px';     
                 } else {
                     panel.style.maxHeight = 0;
                 }
@@ -94,7 +116,7 @@
             // set min height on the parent container
             this.setMinHeight();
 
-            // adjust liner height only if last item is not expanded
+            // adjust liner height only if the last item is not expanded
             if (this.panels[this.panels.length - 1].getAttribute('aria-hidden') !== 'false') {
                 this.linerStyle.height = this.wrapper.offsetHeight - this.linerHeightAdjust + 'px';
             }
@@ -103,6 +125,7 @@
 
         },
         setMinHeight: function () {
+
             // get the highest number from the array
             var highestItem = this.itemHeights.reduce(function(a, b) {
                 return Math.max(a, b);
@@ -126,7 +149,7 @@
             var elst = el.style;
             if (shrinkLiner) {
                 var newLinerHeight = parseFloat(this.linerStyle.height) -
-                    parseFloat(el.getAttribute('data-sq_h'));
+                    parseFloat(el.getAttribute('data-height'));
 
                 this.linerStyle.height = newLinerHeight + 'px';
             }
@@ -136,11 +159,11 @@
         },
         showEl: function (el, growLiner) {
             var elst = el.style;
-            elst.maxHeight = el.getAttribute('data-sq_h') + 'px';
+            elst.maxHeight = el.getAttribute('data-height') + 'px';
 
             if (growLiner) {
                 var newLinerHeight = parseFloat(this.linerStyle.height) +
-                    parseFloat(el.getAttribute('data-sq_h'));
+                    parseFloat(el.getAttribute('data-height'));
                 this.linerStyle.height = newLinerHeight + 'px';
             }
 
@@ -161,8 +184,10 @@
 
             this.controls.forEach(function (control) {
                 control.setAttribute('aria-expanded', 'false')
+                control.setAttribute('aria-disabled', 'false')
             })
-		   
+
+            el.setAttribute('aria-disabled', 'true')
             this.toggle(el.nextElementSibling);
         },
         toggle: function (el) {
