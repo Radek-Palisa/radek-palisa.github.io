@@ -1,283 +1,338 @@
-(function (window, document) {
 
-    function getStyle(el, prop) {
-        return parseFloat(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''));
+function getStyleValueInt(el, prop) {
+    return parseFloat(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''));
+}
 
+function addTran(el) {
+    setTimeout(() => {
+        el.style.transition = 'all .5s' // + speed;
+    }, 100);
+}
+
+function elementHeightWithMargins(el) {
+    return el.offsetHeight + getStyleValueInt(el, 'margin-top') + getStyleValueInt(el, 'margin-bottom')
+}
+
+function highestValueFrom(items) {
+    return items.reduce((a, b) => Math.max(a, b));
+}
+
+function sumFullHeightsOf(elements) {
+    return elements.map(c => elementHeightWithMargins(c)).reduce((a,b) => a + b);
+}
+
+class Tracker {
+
+    create(props) {
+        this.el = document.createElement("div");
+        this.el.className = props.cssClass;
+        props.container.insertBefore(this.el, undefined);
+        this.addTransition(props.transitionSpeed);
+        return this;
     }
 
-    var Accordion = function () {
-        this.wrapperEl = '.accordion';
-        this.outerWrapperClass = 'accordion-outer';
-        this.itemClass = 'accordion-item';
-        this.headersClass = 'accordion-trigger';
-        this.panelsClass = 'accordion-content';
-        this.linerClass = 'liner';
-        this.speed = '.5s';
-    };
+    calculateInitialHeightAdjustment(accordionControls) {
+        let calculateHeight = ( 
+                accordionControls[accordionControls.length - 1].offsetHeight +
+                (getStyleValueInt(accordionControls[accordionControls.length - 1],'margin-top') * 2) +
+                getStyleValueInt(accordionControls[accordionControls.length - 1],'margin-bottom')
+            ) / 2 +
+            getStyleValueInt(this.el,'top') + 4;
+        return calculateHeight;
+    }
 
-    Accordion.prototype = {
-        init: function () {
+    addTransition(transitionSpeed) {
+        this.el.style.transition = 'height ' + transitionSpeed;
+    }
 
-            // cache dom alements
-            this.outerWrapper = document.querySelector('.' + this.outerWrapperClass);
-            this.wrapper = document.querySelector(this.wrapperEl);
-            this.items = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));
-            this.controls = Array.prototype.slice.call(document.querySelectorAll('.' + this.headersClass));
-            this.panels = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));
-            
-            //
-            this.itemHeights = [];
-            this.debouncer = null;
+    adjustHeightTo(newHeight) {
+        this.el.style.height = newHeight + 'px';
+    }
 
-            this.outerWrapper.classList += ' ' + this.outerWrapperClass + '-js';
-            this.setAriaRoles()
+    adjustCurrentHeightBy(adjustmentValue) {
+        this.el.style.height = parseFloat(this.el.style.height) + adjustmentValue + 'px';
+    }
+}
 
-            // create and insert liner
-            this.liner = document.createElement("div");
-            this.liner.className = this.linerClass;
-            this.wrapper.insertBefore(this.liner, undefined)
-            this.linerStyle = this.liner.style;
-            // TODO: this is clumsy
-            var calculateHeight = ( 
-                    this.controls[this.controls.length - 1].offsetHeight +
-                    (getStyle(this.controls[this.controls.length - 1],'margin-top') * 2) +
-                    getStyle(this.controls[this.controls.length - 1],'margin-bottom')
-                ) / 2 +
-                getStyle(this.liner,'top') + 4;
-            this.linerHeightAdjust = calculateHeight;
-            this.linerStyle.transition = 'height ' +  this.speed;
-            // ----------------
+class Accordion {
+    constructor(props) {
+        // reference to html elements by css classes
+        this.outerWrapperClass = props.outerWrapperClass;
+        this.wrapperClass = props.wrapperClass; 
+        this.itemClass = props.itemClass;
+        this.headersClass = props.headersClass;
+        this.panelsClass = props.panelsClass;
+        this.trackerClass = props.trackerClass;
+        this.speed = props.speed;
+        this.firstToBeExpanded = props.firstToBeExpanded;
+        // state
+        this.debouncer = null;
+        this.linerHeightAdjust = 0;
+        this.panelData = [];
+    }
 
-            this.getHeights();
-            this.setListeners(this.wrapper);
-        },
-        setAriaRoles: function() {
-            this.controls.forEach(function(ctrl, i) {
-                ctrl.setAttribute('aria-controls', 'sec' + (i+1));
-                ctrl.setAttribute('id', 'ctrl' + (i+1));
+    cacheDOMelements() {
+        this.outerWrapper = document.querySelector('.' + this.outerWrapperClass);
+        this.wrapper = document.querySelector('.' + this.wrapperClass);
+        this.controls = Array.prototype.slice.call(document.querySelectorAll('.' + this.headersClass));
+        this.panels = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));                
+    }
 
-                if (i === 0) {
-                    ctrl.setAttribute('aria-expanded', 'true');
-                    ctrl.setAttribute('aria-disabled', 'true');
-                } else {
-                    ctrl.setAttribute('aria-expanded', 'false');
-                    ctrl.setAttribute('aria-disabled', 'false');
-                }
-            })
-            this.panels.forEach(function(ctrl, i) {
-                ctrl.setAttribute('labelledby', 'ctrl' + (i+1));
-                ctrl.setAttribute('id', 'sec' + (i+1));
-                ctrl.setAttribute('role', 'region');
+    setIdentifiers() {
+        this.controls.forEach((control, index) => {
+            control.setAttribute('data-id', index)
+        })
+    }
 
-                if (i === 0) {
-                    ctrl.setAttribute('aria-hidden', 'false');
-                } else {
-                    ctrl.setAttribute('aria-hidden', 'true');
-                }
-            })
-        },
-        getHeights: function () {
- 
-            var self = this;
+    initPanelData(firstToBeExpanded) {
+        const panels = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));                
+        panels.forEach((panel, index) => {
+            const panelDataItem = {
+                pos: index,
+                el: panel,
+                expanded: firstToBeExpanded && index === 0 ? true : false,
+                height: null
+            };
+            this.panelData.push(panelDataItem);
+        })
+    } 
+    
+    init() {
 
-            self.panels.forEach(function(panel) {
+        this.initPanelData(this.firstToBeExpanded)
 
-                var panelStyle = panel.style;
+        this.cacheDOMelements()
 
-                // first toggle everything to visible to calculate the heights
-                //elst.position = 'absolute';
-                panelStyle.visibility = 'hidden';
-                panelStyle.display = '';
-                panelStyle.transition = '';
-                // reset max height for resizing
-                panelStyle.maxHeight = 'none';
+        this.setIdentifiers()
 
-                // store the height of the panel in a attribute for further reference
-                var height = getStyle(panel, 'height');
-                panel.setAttribute('data-height', height);
-                self.itemHeights.push(height);
+        this.outerWrapper.classList += ` ${this.outerWrapperClass}-js`;
 
+        // initialize tracker
+        this.tracker = new Tracker().create({
+            cssClass: this.trackerClass,
+            container: this.wrapper,
+            transitionSpeed: this.speed
+        });
+        this.linerHeightAdjust = this.tracker.calculateInitialHeightAdjustment(this.controls);
 
-                panelStyle.position = 'relative';
-                panelStyle.visibility = 'visible';
+        setAriaRoles(this.controls, this.panels)
+        
+        this.getHeights();
 
-                // hide all except the one with aria hidden true
-                if (panel.getAttribute('aria-hidden') === "false") {
-                    panel.style.maxHeight = panel.getAttribute('data-height') + 'px';   //getStyle(el, 'height') + 'px';     
-                } else {
-                    panel.style.maxHeight = 0;
-                }
+        this.setListeners();        
+    }
 
-                self.addTran(panel);
-            })
+    setListeners() {
 
-            // set min height on the parent container
-            this.setMinHeight();
+        // click
+        this.controls.forEach(function(ctrl) {
+            ctrl.addEventListener('click', this.handleClick.bind(this))
+        }, this);
+        
+        // resize
+        window.addEventListener('resize', (function () {
+            clearTimeout(this.debouncer)
+            this.debouncer = setTimeout(function () {
+                this.getHeights()
+            }, 50)
+        }).bind(this));
+        
+        // keydown
+        this.wrapper.addEventListener('keydown', () => {
+            handleKeydown(event, this.controls);
+        })
+    }
 
-            // adjust liner height only if the last item is not expanded
-            if (this.panels[this.panels.length - 1].getAttribute('aria-hidden') !== 'false') {
-                this.linerStyle.height = this.wrapper.offsetHeight - this.linerHeightAdjust + 'px';
-            }
-        },
-        createLiner: function() {
+    getHeights() {
 
-        },
-        setMinHeight: function () {
+        this.panels.forEach((panel, index) => {
+            // first toggle everything to visible to calculate the heights
+            panel.style.cssText = `
+                visibility: hidden;
+                display: block;
+                transition: none;
+                max-height: none
+            `;
+            // store the height of the panel in the panel data
+            const panelHeight = getStyleValueInt(panel, 'height');
+            this.panelData[index].height = panelHeight;
 
-            // get the highest number from the array
-            var highestItem = this.itemHeights.reduce(function(a, b) {
-                return Math.max(a, b);
-            });
-            var controlsHeight = 0;
-            this.controls.forEach(function(ctr) {
-                var heightWithMargins = ctr.offsetHeight +
-                getStyle(ctr, 'margin-top') +
-                getStyle(ctr, 'margin-bottom');
-                controlsHeight = controlsHeight + heightWithMargins;
-            })
-            this.outerWrapper.style.minHeight = (controlsHeight + highestItem + 5) + 'px';
-        },
-        addTran: function (el) {
-            var self = this; 
-            setTimeout(function () {
-                el.style.transition = 'all ' + self.speed;
-            }, 100);
-        },
-        hideEl: function (el, shrinkLiner) {
-            var elst = el.style;
-            if (shrinkLiner) {
-                var newLinerHeight = parseFloat(this.linerStyle.height) -
-                    parseFloat(el.getAttribute('data-height'));
+            panel.style.position = 'relative';
+            panel.style.visibility = 'visible';
 
-                this.linerStyle.height = newLinerHeight + 'px';
-            }
-            elst.maxHeight = 0;
-
-            el.setAttribute('aria-hidden', 'true');
-        },
-        showEl: function (el, growLiner) {
-            var elst = el.style;
-            elst.maxHeight = el.getAttribute('data-height') + 'px';
-
-            if (growLiner) {
-                var newLinerHeight = parseFloat(this.linerStyle.height) +
-                    parseFloat(el.getAttribute('data-height'));
-                this.linerStyle.height = newLinerHeight + 'px';
-            }
-
-            el.setAttribute('aria-hidden', 'false');
-        },
-        clickHandler: function (e) {
-            var el = e.target;
-
-            if (!el.classList.contains(this.headersClass)) {
-                el = el.parentNode;
-            }
-
-            this.clickedEl = el;
-
-            if (el.getAttribute('aria-expanded') === 'true') {
-                return
-            }
-
-            this.controls.forEach(function (control) {
-                control.setAttribute('aria-expanded', 'false')
-                control.setAttribute('aria-disabled', 'false')
-            })
-
-            el.setAttribute('aria-disabled', 'true')
-            this.toggle(el.nextElementSibling);
-        },
-        toggle: function (el) {
-            var elId = el.getAttribute('id');
-            var nowExpanded = this.wrapper.querySelector('div[aria-hidden="false"]');
-            var nowExpandedId = nowExpanded.getAttribute('id')
-            if (elId === 'sec4') { // last being clicked
-                this.hideEl(nowExpanded, true)
-                this.showEl(el, false);
-            } else if (nowExpandedId === 'sec4') { // coming from last
-                this.hideEl(nowExpanded, false)
-                this.showEl(el, true);
+            // hide all except the one with aria hidden true
+            if (this.panelData[index].expanded) {
+                panel.style.maxHeight = this.panelData[index].height + 'px';
             } else {
-                this.hideEl(nowExpanded, true)
-                this.showEl(el, true);
+                panel.style.maxHeight = 0;
             }
 
-            this.clickedEl.setAttribute('aria-expanded', 'true');
-        },
-        setListeners: function (wr) {
-            var self = this;
+            panel.style.transition = 'all .5s'
 
-            self.controls.forEach(function(ctrl) {
-                ctrl.addEventListener('click', self.clickHandler.bind(self))
-            });
+            // addTran(panel);
+        })
 
-            window.addEventListener('resize', function () {
-                clearTimeout(this.debouncer)
-                this.debouncer = setTimeout(function () {
-                    self.itemHeights = [];
-                    self.getHeights(wr)
-                }, 50)
-            });
+        // set min height on the parent container
+        this.outerWrapper.style.minHeight = `
+            ${highestValueFrom(this.panelData.map(item => item.height)) + sumFullHeightsOf(this.controls) + 5}px 
+        `;
 
-            // Bind keyboard behaviors on the main accordion container
-            var triggers = Array.prototype.slice.call(wr.querySelectorAll('.accordion-trigger'));
-            wr.addEventListener('keydown', function (event) {
-                var target = event.target;
-                var key = event.which.toString();
-                // 33 = Page Up, 34 = Page Down
-                var ctrlModifier = (event.ctrlKey && key.match(/33|34/));
-
-                // Is this coming from an accordion header?
-                if (target.classList.contains('accordion-trigger')) {
-                    // Up/ Down arrow and Control + Page Up/ Page Down keyboard operations
-                    // 38 = Up, 40 = Down
-                    if (key.match(/38|40/) || ctrlModifier) {
-                        var index = triggers.indexOf(target);
-                        var direction = (key.match(/34|40/)) ? 1 : -1;
-                        var length = triggers.length;
-                        var newIndex = (index + length + direction) % length;
-
-                        triggers[newIndex].focus();
-
-                        event.preventDefault();
-                    }
-                    else if (key.match(/35|36/)) {
-                        // 35 = End, 36 = Home keyboard operations
-                        switch (key) {
-                            // Go to first accordion
-                            case '36':
-                                triggers[0].focus();
-                                break;
-                            // Go to last accordion
-                            case '35':
-                                triggers[triggers.length - 1].focus();
-                                break;
-                        }
-
-                        event.preventDefault();
-                    }
-                }
-                else if (ctrlModifier) {
-                    // Control + Page Up/ Page Down keyboard operations
-                    // Catches events that happen inside of panels
-                    panels.forEach(function (panel, index) {
-                        if (panel.contains(target)) {
-                            triggers[index].focus();
-
-                            event.preventDefault();
-                        }
-                    });
-                }
-            });
+        if (this.panelData[this.panelData.length - 1].expanded === false) {
+            this.tracker.adjustHeightTo(this.wrapper.offsetHeight - this.linerHeightAdjust)
         }
-    };
+    }
 
-    window.Accordion = Accordion;
+    handleClick(e) {
 
-})(window, document);
+        let controlClicked = e.target;
+
+        if (!controlClicked.classList.contains(this.headersClass)) {
+            controlClicked = controlClicked.parentNode;
+        }
+
+        const controlId = parseFloat(controlClicked.getAttribute('data-id'))
+
+        if (this.panelData[controlId].expanded === true) {
+            return;
+        }
+
+        const panelToShow = controlClicked.nextElementSibling;
+        // look for method to math first
+        const panelToHide = this.panelData.filter(item => item.expanded === true)[0];
+
+        const panelToShowHeight = this.panelData[controlId].height;
+        const panelToHideHeight = panelToHide.height;
+
+        collapseHeight(panelToHide.el);
+        expandHeight(this.panelData[controlId]);
+
+        if (controlId === this.panelData.length - 1) { // last item being clicked
+            this.tracker.adjustCurrentHeightBy(-panelToHideHeight)
+        } else if (panelToHide.pos === this.panelData.length - 1) { // coming from last
+            this.tracker.adjustCurrentHeightBy(+panelToShowHeight)
+        } else {
+            this.tracker.adjustCurrentHeightBy(-panelToHideHeight)
+            this.tracker.adjustCurrentHeightBy(+panelToShowHeight)
+        }
+
+        // update state
+        this.panelData[controlId].expanded = true;
+        panelToHide.expanded = false;
+
+        // toggling aria roles 
+        toggleAriaAttributes(this.controls, controlClicked, panelToHide, this.panelData[controlId].el)
+    }
+}
+
+function toggleAriaAttributes(controls, controlClicked, panelToHide) {
+    controls.forEach(control => {
+        control.setAttribute('aria-expanded', 'false')
+        control.setAttribute('aria-disabled', 'false')
+    })
+    // controls
+    // this.controls[panelToHide.pos].setAttribute('aria-expanded', 'false');
+    // this.controls[panelToHide.pos].setAttribute('aria-disabled', 'false')
+    controlClicked.setAttribute('aria-disabled', 'true')
+    controlClicked.setAttribute('aria-expanded', 'true');
+    // panels
+    panelToHide.el.setAttribute('aria-hidden', 'true');
+    this.panelData[controlId].el.setAttribute('aria-hidden', 'false');
+}
+
+function collapseHeight(el) {
+    el.style.maxHeight = 0;
+    // el.setAttribute('aria-hidden', 'true');
+}
+
+function expandHeight(panelObj) {
+    panelObj.el.style.maxHeight = panelObj.height + 'px';
+    // panelObj.el.setAttribute('aria-hidden', 'false');
+}
+ 
+function handleKeydown(event, triggers) {
+    var target = event.target;
+    var key = event.which.toString();
+    // 33 = Page Up, 34 = Page Down
+    var ctrlModifier = (event.ctrlKey && key.match(/33|34/));
+
+    // Is this coming from an accordion header?
+    if (target.classList.contains('accordion-trigger')) {
+        // Up/ Down arrow and Control + Page Up/ Page Down keyboard operations
+        // 38 = Up, 40 = Down
+        if (key.match(/38|40/) || ctrlModifier) {
+            var index = triggers.indexOf(target);
+            var direction = (key.match(/34|40/)) ? 1 : -1;
+            var length = triggers.length;
+            var newIndex = (index + length + direction) % length;
+
+            triggers[newIndex].focus();
+
+            event.preventDefault();
+        }
+        else if (key.match(/35|36/)) {
+            // 35 = End, 36 = Home keyboard operations
+            switch (key) {
+                // Go to first accordion
+                case '36':
+                    triggers[0].focus();
+                    break;
+                // Go to last accordion
+                case '35':
+                    triggers[triggers.length - 1].focus();
+                    break;
+            }
+
+            event.preventDefault();
+        }
+    }
+    else if (ctrlModifier) {
+        // Control + Page Up/ Page Down keyboard operations
+        // Catches events that happen inside of panels
+        panels.forEach(function (panel, index) {
+            if (panel.contains(target)) {
+                triggers[index].focus();
+
+                event.preventDefault();
+            }
+        });
+    }            
+}
+
+function setAriaRoles(controls, panels) {
+    controls.forEach(function(ctrl, i) {
+        ctrl.setAttribute('aria-controls', 'sec' + (i+1));
+        ctrl.setAttribute('id', 'ctrl' + (i+1));
+
+        if (i === 0) {
+            ctrl.setAttribute('aria-expanded', 'true');
+            ctrl.setAttribute('aria-disabled', 'true');
+        } else {
+            ctrl.setAttribute('aria-expanded', 'false');
+            ctrl.setAttribute('aria-disabled', 'false');
+        }
+    })
+    panels.forEach(function(ctrl, i) {
+        ctrl.setAttribute('labelledby', 'ctrl' + (i+1));
+        ctrl.setAttribute('id', 'sec' + (i+1));
+        ctrl.setAttribute('role', 'region');
+
+        if (i === 0) {
+            ctrl.setAttribute('aria-hidden', 'false');
+        } else {
+            ctrl.setAttribute('aria-hidden', 'true');
+        }
+    })
+}
 
 window.onload = function() {
-    var accordion = new Accordion();
-    accordion.init();
-}
+    new Accordion({
+        wrapperClass: 'accordion',
+        outerWrapperClass: 'accordion-outer',
+        itemClass: 'accordion-item',
+        headersClass: 'accordion-trigger',
+        panelsClass: 'accordion-content',
+        trackerClass: 'liner',
+        speed: '.5s',
+        firstToBeExpanded: true
+    }).init()
+}    

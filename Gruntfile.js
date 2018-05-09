@@ -102,8 +102,8 @@ module.exports = function(grunt) {
 				files: '*.html',
 			},
 			scripts: {
-                files: 'js/functions.js',
-                tasks: ['uglify']
+                files: 'js/functions.js'
+                //tasks: ['uglify']
 			},
 		}, // watch
 
