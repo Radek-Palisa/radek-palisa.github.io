@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+    require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
@@ -29,13 +31,24 @@ module.exports = function(grunt) {
 			}
 		  }
         },
+        babel: {
+            options: {
+                sourceMap: false,
+                presets: ['env']
+            },
+            dist: {
+                files: {
+                    'js/functions-babeled.js': 'js/functions.js'
+                }
+            }
+        },
 		/**
 		 * Uglify
 		 */        
         uglify: {
           my_target: {
             files: {
-              'js/funcs-min.js': ['js/functions.js']
+              'js/funcs-min.js': ['js/functions-babeled.js']
             }
           }
         },
@@ -102,8 +115,8 @@ module.exports = function(grunt) {
 				files: '*.html',
 			},
 			scripts: {
-                files: 'js/functions.js'
-                //tasks: ['uglify']
+                files: 'js/functions.js',
+                tasks: ['babel', 'uglify']
 			},
 		}, // watch
 
@@ -113,6 +126,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-contrib-jade');
-	grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.registerTask('default',['jade','connect','watch']);
 }
