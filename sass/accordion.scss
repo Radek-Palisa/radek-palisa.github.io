@@ -20,7 +20,7 @@
     max-width: 625px;
 }
   
-.liner {
+.tracker {
     z-index: 1;
     content: '';
     position: absolute;
@@ -35,15 +35,21 @@
 }
 
 .accordion-content {
+    position: relative;
     color: $white;
-    padding-left: 30px;
+    margin-left: 30px;
     @media (min-width: $laptop) {
-        padding-left: 125px;
+        margin-left: 125px;
     }
     line-height: 1.8;
     font-weight: 300;
     
     > p {
+        //
+        position: absolute;
+        top: 0;
+        left: 0;
+        //
         padding: 6px 0 16px;
         margin: 0;
 

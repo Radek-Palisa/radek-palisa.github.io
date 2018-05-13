@@ -1,52 +1,24 @@
-
-function getStyleValueInt(el, prop) {
-    return parseFloat(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''));
-}
-
-function addTran(el) {
-    setTimeout(() => {
-        el.style.transition = 'all .5s' // + speed;
-    }, 100);
-}
-
-function elementHeightWithMargins(el) {
-    return el.offsetHeight + getStyleValueInt(el, 'margin-top') + getStyleValueInt(el, 'margin-bottom')
-}
-
-function highestValueFrom(items) {
-    return items.reduce((a, b) => Math.max(a, b));
-}
-
-function sumFullHeightsOf(elements) {
-    return elements.map(c => elementHeightWithMargins(c)).reduce((a,b) => a + b);
-}
-
 class Tracker {
 
     create(props) {
         this.el = document.createElement("div");
         this.el.className = props.cssClass;
         props.container.insertBefore(this.el, undefined);
-        this.addTransition(props.transitionSpeed);
+        this.calculateInitialHeightAdjustValue(props.lastControl);
         return this;
     }
 
-    calculateInitialHeightAdjustment(accordionControls) {
-        let calculateHeight = ( 
-                accordionControls[accordionControls.length - 1].offsetHeight +
-                (getStyleValueInt(accordionControls[accordionControls.length - 1],'margin-top') * 2) +
-                getStyleValueInt(accordionControls[accordionControls.length - 1],'margin-bottom')
-            ) / 2 +
-            getStyleValueInt(this.el,'top') + 4;
-        return calculateHeight;
+    calculateInitialHeightAdjustValue(lastControl) {
+        this.initialHeightAdjustValue = ( 
+            lastControl.offsetHeight +
+            (getStyleValueInt(lastControl,'margin-top') * 2) +
+            getStyleValueInt(lastControl,'margin-bottom')
+        ) / 2 +
+        getStyleValueInt(this.el,'top') + 4;
     }
 
-    addTransition(transitionSpeed) {
-        this.el.style.transition = 'height ' + transitionSpeed;
-    }
-
-    adjustHeightTo(newHeight) {
-        this.el.style.height = newHeight + 'px';
+    adjustInitialHeightInRelationTo(parentElHeight) {
+        this.el.style.height = `${parentElHeight - this.initialHeightAdjustValue}px`; 
     }
 
     adjustCurrentHeightBy(adjustmentValue) {
@@ -56,54 +28,27 @@ class Tracker {
 
 class Accordion {
     constructor(props) {
-        // reference to html elements by css classes
+        // reference to html elements via css classes
         this.outerWrapperClass = props.outerWrapperClass;
         this.wrapperClass = props.wrapperClass; 
         this.itemClass = props.itemClass;
         this.headersClass = props.headersClass;
         this.panelsClass = props.panelsClass;
         this.trackerClass = props.trackerClass;
-        this.speed = props.speed;
+        // options
+        this.transitionSpeed = props.speed;
         this.firstToBeExpanded = props.firstToBeExpanded;
         // state
-        this.debouncer = null;
-        this.linerHeightAdjust = 0;
         this.panelData = [];
     }
 
-    cacheDOMelements() {
-        this.outerWrapper = document.querySelector('.' + this.outerWrapperClass);
-        this.wrapper = document.querySelector('.' + this.wrapperClass);
-        this.controls = Array.prototype.slice.call(document.querySelectorAll('.' + this.headersClass));
-        this.panels = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));                
-    }
-
-    setIdentifiers() {
-        this.controls.forEach((control, index) => {
-            control.setAttribute('data-id', index)
-        })
-    }
-
-    initPanelData(firstToBeExpanded) {
-        const panels = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));                
-        panels.forEach((panel, index) => {
-            const panelDataItem = {
-                pos: index,
-                el: panel,
-                expanded: firstToBeExpanded && index === 0 ? true : false,
-                height: null
-            };
-            this.panelData.push(panelDataItem);
-        })
-    } 
-    
     init() {
 
         this.initPanelData(this.firstToBeExpanded)
 
         this.cacheDOMelements()
 
-        this.setIdentifiers()
+        this.setControlIdentifiers()
 
         this.outerWrapper.classList += ` ${this.outerWrapperClass}-js`;
 
@@ -111,144 +56,153 @@ class Accordion {
         this.tracker = new Tracker().create({
             cssClass: this.trackerClass,
             container: this.wrapper,
-            transitionSpeed: this.speed
+            lastControl: this.controls[this.controls.length - 1]
         });
-        this.linerHeightAdjust = this.tracker.calculateInitialHeightAdjustment(this.controls);
 
-        setAriaRoles(this.controls, this.panels)
+        this.setHeights();
         
-        this.getHeights();
-
         this.setListeners();        
+        
+        setAriaRoles(this.controls, this.panelData.map(item => item.el))
+    }
+
+    initPanelData(firstToBeExpanded) {
+        const panels = Array.prototype.slice.call(document.querySelectorAll('.' + this.panelsClass));                
+        panels.forEach((panel, index) => {
+            const panelDataItem = {
+                idx: index,
+                el: panel,
+                isExpanded: firstToBeExpanded && index === 0 ? true : false,
+                height: null
+            };
+            this.panelData.push(panelDataItem);
+        })
+    } 
+
+    cacheDOMelements() {
+        this.outerWrapper = document.querySelector('.' + this.outerWrapperClass);
+        this.wrapper = document.querySelector('.' + this.wrapperClass);
+        this.controls = Array.prototype.slice.call(document.querySelectorAll('.' + this.headersClass));                
+    }
+
+    setControlIdentifiers() {
+        this.controls.forEach((control, index) => {
+            control.setAttribute('data-id', index)
+        })
     }
 
     setListeners() {
-
         // click
-        this.controls.forEach(function(ctrl) {
+        this.controls.forEach(ctrl => {
             ctrl.addEventListener('click', this.handleClick.bind(this))
-        }, this);
-        
+        });   
         // resize
-        window.addEventListener('resize', (function () {
-            clearTimeout(this.debouncer)
-            this.debouncer = setTimeout(function () {
-                this.getHeights()
-            }, 50)
-        }).bind(this));
-        
+        window.addEventListener('resize', debounce(this.setHeights, 50).bind(this));
         // keydown
         this.wrapper.addEventListener('keydown', () => {
             handleKeydown(event, this.controls);
         })
     }
 
-    getHeights() {
+    setHeights() {
 
-        this.panels.forEach((panel, index) => {
-            // first toggle everything to visible to calculate the heights
-            panel.style.cssText = `
-                visibility: hidden;
-                display: block;
-                transition: none;
-                max-height: none
-            `;
-            // store the height of the panel in the panel data
-            const panelHeight = getStyleValueInt(panel, 'height');
-            this.panelData[index].height = panelHeight;
+        this.tracker.el.style.transition = 'none'
 
-            panel.style.position = 'relative';
-            panel.style.visibility = 'visible';
+        this.panelData.forEach(panel => {
 
-            // hide all except the one with aria hidden true
-            if (this.panelData[index].expanded) {
-                panel.style.maxHeight = this.panelData[index].height + 'px';
-            } else {
-                panel.style.maxHeight = 0;
-            }
+            const panelStyle = panel.el.style;
+            panelStyle.transition = 'none';
 
-            panel.style.transition = 'all .5s'
+            // store the height of the panel child in the panel data
+            panel.height = panel.el.firstElementChild.offsetHeight;
+            // set panel height to 0 on all but the currently expanded
+            panelStyle.height = panel.isExpanded ? panel.height + 'px' : 0;
 
-            // addTran(panel);
+            // delay putting transition back so that it doesn't mess with the height calculation for the wrapper in the next step
+            addCssTransitionWithDelay(panel.el, 'height', this.transitionSpeed)
         })
 
-        // set min height on the parent container
+        // set min-height on the parent container so that expanding accordion
+        // sections doesn't shift down the rest of the content on the page.
         this.outerWrapper.style.minHeight = `
             ${highestValueFrom(this.panelData.map(item => item.height)) + sumFullHeightsOf(this.controls) + 5}px 
         `;
 
-        if (this.panelData[this.panelData.length - 1].expanded === false) {
-            this.tracker.adjustHeightTo(this.wrapper.offsetHeight - this.linerHeightAdjust)
+        // adjust tracker height (only if the currently expanded panel is not the last)
+        if (this.panelData[this.panelData.length - 1].isExpanded === false) {
+            this.tracker.adjustInitialHeightInRelationTo(this.wrapper.offsetHeight);
         }
+
+        // delay putting transition back on the tracker to prevent snappy animation
+        addCssTransitionWithDelay(this.tracker.el, 'height', this.transitionSpeed)
     }
 
     handleClick(e) {
 
-        let controlClicked = e.target;
-
-        if (!controlClicked.classList.contains(this.headersClass)) {
-            controlClicked = controlClicked.parentNode;
-        }
+        const controlClicked = e.target.classList.contains(this.headersClass) ? e.target : e.target.parentNode;
 
         const controlId = parseFloat(controlClicked.getAttribute('data-id'))
 
-        if (this.panelData[controlId].expanded === true) {
+        if (this.panelData[controlId].isExpanded === true) {
             return;
         }
 
-        const panelToShow = controlClicked.nextElementSibling;
-        // look for method to math first
-        const panelToHide = this.panelData.filter(item => item.expanded === true)[0];
-
-        const panelToShowHeight = this.panelData[controlId].height;
+        const panelToHide = this.panelData.find(item => item.isExpanded === true);
         const panelToHideHeight = panelToHide.height;
+        const panelToShow = this.panelData[controlId];
+        const panelToShowHeight = panelToShow.height;
 
-        collapseHeight(panelToHide.el);
-        expandHeight(this.panelData[controlId]);
+        // 1. toggle panels
+        togglePanelsHeight(panelToHide, panelToShow)
 
+        // 2. adjust tracker height
         if (controlId === this.panelData.length - 1) { // last item being clicked
             this.tracker.adjustCurrentHeightBy(-panelToHideHeight)
-        } else if (panelToHide.pos === this.panelData.length - 1) { // coming from last
+        } else if (panelToHide.idx === this.panelData.length - 1) { // coming from last
             this.tracker.adjustCurrentHeightBy(+panelToShowHeight)
         } else {
             this.tracker.adjustCurrentHeightBy(-panelToHideHeight)
             this.tracker.adjustCurrentHeightBy(+panelToShowHeight)
         }
 
-        // update state
-        this.panelData[controlId].expanded = true;
-        panelToHide.expanded = false;
+        // 3. toggle aria roles 
+        toggleAriaAttributes(this.controls, controlClicked, panelToHide, panelToShow)
 
-        // toggling aria roles 
-        toggleAriaAttributes(this.controls, controlClicked, panelToHide, this.panelData[controlId].el)
+        // 4. update state
+        panelToShow.isExpanded = true;
+        panelToHide.isExpanded = false;
     }
 }
 
-function toggleAriaAttributes(controls, controlClicked, panelToHide) {
-    controls.forEach(control => {
-        control.setAttribute('aria-expanded', 'false')
-        control.setAttribute('aria-disabled', 'false')
-    })
-    // controls
-    // this.controls[panelToHide.pos].setAttribute('aria-expanded', 'false');
-    // this.controls[panelToHide.pos].setAttribute('aria-disabled', 'false')
-    controlClicked.setAttribute('aria-disabled', 'true')
-    controlClicked.setAttribute('aria-expanded', 'true');
-    // panels
-    panelToHide.el.setAttribute('aria-hidden', 'true');
-    this.panelData[controlId].el.setAttribute('aria-hidden', 'false');
+function addCssTransitionWithDelay(el, property, delay) {
+    setTimeout(() => {
+        el.style.transition = `${property} ${delay}ms` // + speed;
+    }, delay);
 }
 
-function collapseHeight(el) {
-    el.style.maxHeight = 0;
-    // el.setAttribute('aria-hidden', 'true');
+function elementHeightWithMargins(el) {
+    return el.offsetHeight + getStyleValueInt(el, 'margin-top') + getStyleValueInt(el, 'margin-bottom')
 }
 
-function expandHeight(panelObj) {
-    panelObj.el.style.maxHeight = panelObj.height + 'px';
-    // panelObj.el.setAttribute('aria-hidden', 'false');
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
+function getStyleValueInt(el, prop) {
+    return parseFloat(window.getComputedStyle(el).getPropertyValue(prop).replace('px', ''));
 }
- 
+
 function handleKeydown(event, triggers) {
     var target = event.target;
     var key = event.which.toString();
@@ -298,6 +252,10 @@ function handleKeydown(event, triggers) {
     }            
 }
 
+function highestValueFrom(items) {
+    return items.reduce((a, b) => Math.max(a, b));
+}
+
 function setAriaRoles(controls, panels) {
     controls.forEach(function(ctrl, i) {
         ctrl.setAttribute('aria-controls', 'sec' + (i+1));
@@ -324,6 +282,28 @@ function setAriaRoles(controls, panels) {
     })
 }
 
+function sumFullHeightsOf(elements) {
+    return elements.map(c => elementHeightWithMargins(c)).reduce((a,b) => a + b);
+}
+
+function toggleAriaAttributes(controls, controlClicked, panelToHide, panelToShow) {
+    // controls
+    controls[panelToHide.idx].setAttribute('aria-expanded', 'false');
+    controls[panelToHide.idx].setAttribute('aria-disabled', 'false')
+    controlClicked.setAttribute('aria-disabled', 'true')
+    controlClicked.setAttribute('aria-expanded', 'true');
+    // panels
+    panelToHide.el.setAttribute('aria-hidden', 'true');
+    panelToShow.el.setAttribute('aria-hidden', 'false');
+}
+
+function togglePanelsHeight(panelToHide, panelToShow) {
+    panelToHide.el.style.height = 0;
+    panelToShow.el.style.height = panelToShow.height + 'px';
+}
+
+// initialize accordion on page load
+
 window.onload = function() {
     new Accordion({
         wrapperClass: 'accordion',
@@ -331,8 +311,8 @@ window.onload = function() {
         itemClass: 'accordion-item',
         headersClass: 'accordion-trigger',
         panelsClass: 'accordion-content',
-        trackerClass: 'liner',
-        speed: '.5s',
+        trackerClass: 'tracker',
+        speed: '500',
         firstToBeExpanded: true
     }).init()
-}    
+}
