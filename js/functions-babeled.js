@@ -66,7 +66,7 @@ var Accordion = function () {
 
             this.setControlIdentifiers();
 
-            this.outerWrapper.classList += ' ' + this.outerWrapperClass + '-js';
+            this.outerWrapper.classList.add(this.outerWrapperClass + '-js');
 
             // initialize tracker
             this.tracker = new Tracker().create({
@@ -176,9 +176,9 @@ var Accordion = function () {
                 return;
             }
 
-            var panelToHide = this.panelData.find(function (item) {
+            var panelToHide = this.panelData.filter(function (item) {
                 return item.isExpanded === true;
-            });
+            })[0]; // filter because IE doesnt support find()
             var panelToHideHeight = panelToHide.height;
             var panelToShow = this.panelData[controlId];
             var panelToShowHeight = panelToShow.height;

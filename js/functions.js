@@ -50,7 +50,7 @@ class Accordion {
 
         this.setControlIdentifiers()
 
-        this.outerWrapper.classList += ` ${this.outerWrapperClass}-js`;
+        this.outerWrapper.classList.add(`${this.outerWrapperClass}-js`);
 
         // initialize tracker
         this.tracker = new Tracker().create({
@@ -147,7 +147,7 @@ class Accordion {
             return;
         }
 
-        const panelToHide = this.panelData.find(item => item.isExpanded === true);
+        const panelToHide = this.panelData.filter(item => item.isExpanded === true)[0]; // filter because IE doesnt support find()
         const panelToHideHeight = panelToHide.height;
         const panelToShow = this.panelData[controlId];
         const panelToShowHeight = panelToShow.height;
