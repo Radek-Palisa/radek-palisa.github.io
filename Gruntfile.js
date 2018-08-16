@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 		/**
 		 * Jade
 		 */
-		jade: {
+		pug: {
 		  compile: {
 			options: {
 			  pretty: true,
@@ -103,9 +103,9 @@ module.exports = function(grunt) {
 	  	 */
 		watch: {
 			options: { livereload: true},
-			jade: {
+			pug: {
 				files: 'jade/**/*.jade',
-				tasks: ['jade']
+				tasks: ['pug']
 			},
 			css: {
 				files: '**/*.{scss,sass}',
@@ -125,7 +125,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-autoprefixer');
-	grunt.loadNpmTasks('grunt-contrib-jade');
+	grunt.loadNpmTasks('grunt-contrib-pug');
     grunt.loadNpmTasks('grunt-contrib-connect');
-	grunt.registerTask('default',['jade','connect','watch']);
+	grunt.registerTask('default',['pug','connect','watch']);
 }
