@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 			  pretty: true,
 			},
 			files: {
-				'index.html' : 'jade/index.jade',
+				'index.html' : 'jade/index.pug',
 				'cs/index.html' : 'jade/cs/index.jade',
 				'gr/index.html' : 'jade/gr/index.jade'
 			}
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
 		watch: {
 			options: { livereload: true},
 			pug: {
-				files: 'jade/**/*.jade',
+				files: 'jade/**/*.{jade,pug}',
 				tasks: ['pug']
 			},
 			css: {
