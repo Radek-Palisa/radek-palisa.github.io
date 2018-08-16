@@ -1,97 +1,76 @@
 extends partials/skeleton.jade
 
 block body
-	header.header.section-diagonal.section-diagonal--upwards
-		//- nav.nav
-		//- 	ul.lang-options
-		//- 		li: a(href="index.html").lang__btn.lang__btn--activated En
-		//- 		li: a(href="cs/index.html").lang__btn Cs
-		//- 		li: a(href="gr/index.html").lang__btn Ελ
+	main.main
+		header.header.section-diagonal.section-diagonal--upwards
+			.logo
+				h1.logo__title Radek Palisa
+				p.logo__desc Front-End Developer
 
-		//- 	ul.nav__list
-		//- 		li: a(href="#about") About
-		//- 		li: a(href="#work") Work
-		//- 		li: a(href="#contact") Contact
-		.logo
-			h1.logo__title Radek Palisa
-			p.logo__desc Front-End Developer
+		section.about#about
+			h2.section-title.section-title--about Hi, I'm Radek.
+			section.about__graphic
+				figure.about-icon.about-icon--pencil
+					include partials/icons/cafe.jade
+					figcaption Coffee
+				figure.about-icon.about-icon--code
+					include partials/icons/edit.jade
+					figcaption Design
+				figure
+					img.profile-pic(src="https://www.radekpalisa.com/img/headshot.jpg", alt="a profile picture of me")
+				figure.about-icon.about-icon--responsive
+					include partials/icons/code.jade
+					figcaption Code
+				figure.about-icon.about-icon--wordpress
+					include partials/icons/lightbulb.jade
+					figcaption Solution
+			p.about__intro I’m a Web Developer from the Czech Republic, currently part of eBay’s EU WebDev team. In my spare time, I'm learning German and keeping up with the ever changing landscape of the web industry.
 
-	section.about#about
-		h2.section-title.section-title--about About
-		section.about__graphic
-			figure.about-icon.about-icon--pencil
-				include partials/icons/cafe.jade
-				figcaption Coffee
-			figure.about-icon.about-icon--code
-				include partials/icons/edit.jade
-				figcaption Design
-			figure
-				img.profile-pic(src="https://www.radekpalisa.com/img/headshot.jpg", alt="a profile picture of me")
-			figure.about-icon.about-icon--responsive
-				include partials/icons/code.jade
-				figcaption Code
-			figure.about-icon.about-icon--wordpress
-				include partials/icons/lightbulb.jade
-				figcaption Solution
-		p.about__opener Hi, I'm Radek.
-		p.about__intro I’m a Web Developer from the Czech Republic, currently part of eBay’s EU WebDev team. In my spare time, I'm learning German and keeping up with the ever changing landscape of the web industry.
+		section.work.section-diagonal.section-diagonal--downwards.section-diagonal--upwards
+			h2.section-title.section-title--work#work My story
+			.accordion-outer
+				div
+					.accordion
+						section.accordion-item
+							button.accordion-trigger
+								img.logo-sap(src="/img/sap-optimed.svg", alt="SAP")
+								span Feb 2015
+							.accordion-content
+								p <span>February 2015</span>I came out of university with a degree which allowed me to hold elaborated discourses with anyone willing to listen at the local pub, but which proved rather difficult to helping me land a job. Working in Data Management in SAP was the first step to a remedy. However, after learning the ins and outs of the job, the tasks became very monotonous and repetitive. During a brief mid-life crisis in my mid-twenties, I discovered coding.
+						section.accordion-item
+							button.accordion-trigger
+								img.logo-acs(src="img/acs-optimed.svg", alt="Auto Caravan Sport")
+								span Mar 2016
+							.accordion-content
+								p <span>March 2016</span>After a year of intensive code learning in any spare moment I had, I decided to leave SAP. I wanted  to be coding full-time and knew that I needed more experience. Fortunately, my father was imprudent enough to entrust me with building a web presence for his small business, <a style="color: white; text-decoration: none; border-bottom: 1px solid white" href="http://www.autocaravansport.cz">Auto Caravan Sport</a>. I found myself applying my learned design and UX principles to a real project. I was writing for-production code and dealing with various browser quirks. Internet Explorer began to haunt my dreams.
+						section.accordion-item
+							button.accordion-trigger
+								img.logo-alensa(src="/img/alensa-optimed.svg", alt="Alensa")
+								span Sep 2016
+							.accordion-content
+								p <span>September 2016</span>Alensa was a turning point for me. After a little over a year, I progressed from the “did-you-try-to-turn-it-off-and-on” type of knowledge to a full time job as a Front-End Developer. At Alensa, I started connecting the dots about server-client communication, APIs, and was introduced to PHP. I helped shape the UI/UX of a successful e-commerce company. Above all, I was increasingly diving into Javascript both at work and in my personal projects.
+						section.accordion-item
+							button.accordion-trigger
+								img.logo-ebay(src="img/ebay-optimed.svg", alt="eBay")
+								span Jul 2017
+							.accordion-content
+								p <span>July 2017</span>I am currently part of eBay’s EU WebDev team. Since I started at eBay, I have grown and matured considerably as a developer. I enjoy learning from my colleagues and from the problems we face. Good coding practices, user experience, and accessibility are always our top priority and, in the spirit of “good developers are lazy developers”, we have been working on tools to simplify and automatize our tasks. In the meantime, I am currently catching up with the latest JS frameworks.
 
-	section.work.section-diagonal.section-diagonal--downwards.section-diagonal--upwards
-		h2.section-title.section-title--work#work My story
-		//- section.work__example
-		//- 	.screen-set
-		//- 		.screen-set__canvas
-		//- 	.work__example__desc
-		//- 		h3 Auto Caravan Sport s.r.o.
-		//- 		p A static website with the purpose of stating business intent as well as a personal presentation of the client. To reflect this, I opted for one-page design with a number of sub-pages for 'learn-more' content. Coded semantically in HTML5, modularly in CSS3, with custom Jquery and one external JS plugin for image sliding. It is fully responsive with the design accommodating different screen sizes accordingly.
-		//- 		.work__example__desc__link
-		//- a(href="http://autocaravansport.cz") Go To Site
-		.accordion-outer
-			div
-				.accordion
-					section.accordion-item
-						button.accordion-trigger
-							img.logo-sap(src="/img/sap-optimed.svg", alt="SAP")
-							span Feb 2015
-						.accordion-content
-							p <span>February 2015</span>I came out of university with a degree which allowed me to hold elaborated discourses with anyone willing to listen at the local pub, but which proved rather difficult to helping me land a job. Working in Data Management in SAP was the first step to a remedy. However, after learning the ins and outs of the job, the tasks became very monotonous and repetitive. During a brief mid-life crisis in my mid-twenties, I discovered coding.
-					section.accordion-item
-						button.accordion-trigger
-							img.logo-acs(src="img/acs-optimed.svg", alt="Auto Caravan Sport")
-							span Mar 2016
-						.accordion-content
-							p <span>March 2016</span>After a year of intensive code learning in any spare moment I had, I decided to leave SAP. I wanted  to be coding full-time and knew that I needed more experience. Fortunately, my father was imprudent enough to entrust me with building a web presence for his small business, <a style="color: white; text-decoration: none; border-bottom: 1px solid white" href="http://www.autocaravansport.cz">Auto Caravan Sport</a>. I found myself applying my learned design and UX principles to a real project. I was writing for-production code and dealing with various browser quirks. Internet Explorer began to haunt my dreams.
-					section.accordion-item
-						button.accordion-trigger
-							img.logo-alensa(src="/img/alensa-optimed.svg", alt="Alensa")
-							span Sep 2016
-						.accordion-content
-							p <span>September 2016</span>Alensa was a turning point for me. After a little over a year, I progressed from the “did-you-try-to-turn-it-off-and-on” type of knowledge to a full time job as a Front-End Developer. At Alensa, I started connecting the dots about server-client communication, APIs, and was introduced to PHP. I helped shape the UI/UX of a successful e-commerce company. Above all, I was increasingly diving into Javascript both at work and in my personal projects.
-					section.accordion-item
-						button.accordion-trigger
-							img.logo-ebay(src="img/ebay-optimed.svg", alt="eBay")
-							span Jul 2017
-						.accordion-content
-							p <span>July 2017</span>I am currently part of eBay’s EU WebDev team. Since I started at eBay, I have grown and matured considerably as a developer. I enjoy learning from my colleagues and from the problems we face. Good coding practices, user experience, and accessibility are always our top priority and, in the spirit of “good developers are lazy developers”, we have been working on tools to simplify and automatize our tasks. In the meantime, I am currently catching up with the latest JS frameworks.
+		section.contact#contact
+			h2.section-title.section-title--contact Contact
+			hr
+			.contact__email
+				a(href="mailto:radek.palisa@gmail.com", target="_blank") radek.palisa@gmail.com
+			hr
+			p.contact__findme find me on
+			.social-icons
+				a.icon(href="https://www.linkedin.com/in/radek-palisa-96332886" title="LinkedIn")
+					.icon__canvas.icon__canvas--linkedin
+				a.icon(href="https://github.com/Radek-Palisa" title="GitHub")
+					.icon__canvas.icon__canvas--github
+				a.icon(href="https://www.instagram.com/radekpalisa" title="Instagram")
+					.icon__canvas.icon__canvas--instagram
 
-	section.contact#contact
-		h2.section-title.section-title--contact Contact
-		hr
-		.contact__email
-			a(href="mailto:radek.palisa@gmail.com", target="_blank") radek.palisa@gmail.com
-		hr
-		p.contact__findme find me on
-		.social-icons
-			a.icon(href="https://www.linkedin.com/in/radek-palisa-96332886" title="LinkedIn")
-				.icon__canvas.icon__canvas--linkedin
-			a.icon(href="https://github.com/Radek-Palisa" title="GitHub")
-				.icon__canvas.icon__canvas--github
-			a.icon(href="https://www.instagram.com/radekpalisa" title="Instagram")
-				.icon__canvas.icon__canvas--instagram
+		footer.footer.section-diagonal.section-diagonal--downwards
+			p.footer__copyright &#169; 2018 Radek Palisa
 
-	footer.footer.section-diagonal.section-diagonal--downwards
-		p.footer__copyright &#169; 2018 Radek Palisa
-		//- ul.nav__list
-		//- 	li: a(href="#about") About
-		//- 	li: a(href="#work") Work
-		//- 	li: a(href="#contact") Contact
