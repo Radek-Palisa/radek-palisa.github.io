@@ -2,10 +2,5 @@ node_modules
 .npm-debug.log
 tmp
 .sass-cache
-*.css.map
 vendors
-style-min.css
-style.css.map
-index.html
-style.css
 dist/
