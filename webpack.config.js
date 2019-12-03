@@ -21,7 +21,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: ['**/*', '!images', '!images/*'],
+        cleanOnceBeforeBuildPatterns: ['**/*', '!images', '!images/*', '!CNAME'],
       }),
       new HtmlWebpackPlugin({
         template: './src/html/index.pug',
