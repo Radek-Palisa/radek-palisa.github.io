@@ -11,5 +11,8 @@
 	"files.eol": "\n",
 	"mocha.env": {
 		"NODE_ENV": "test",
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
 	}
 }
