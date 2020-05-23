@@ -1,31 +1,3 @@
-class Tracker {
-  create(props) {
-    this.el = document.createElement('div');
-    this.el.className = props.cssClass;
-    props.container.insertBefore(this.el, undefined);
-    this.calculateInitialHeightAdjustValue(props.lastControl);
-    return this;
-  }
-
-  calculateInitialHeightAdjustValue(lastControl) {
-    this.initialHeightAdjustValue =
-      (lastControl.offsetHeight +
-        getStyleValueInt(lastControl, 'margin-top') * 2 +
-        getStyleValueInt(lastControl, 'margin-bottom')) /
-        2 +
-      getStyleValueInt(this.el, 'top') +
-      4;
-  }
-
-  adjustInitialHeightInRelationTo(parentElHeight) {
-    this.el.style.height = `${parentElHeight - this.initialHeightAdjustValue}px`;
-  }
-
-  adjustCurrentHeightBy(adjustmentValue) {
-    this.el.style.height = `${parseFloat(this.el.style.height) + adjustmentValue}px`;
-  }
-}
-
 class Accordion {
   constructor(props) {
     // reference to html elements via css classes
@@ -34,10 +6,8 @@ class Accordion {
     this.itemClass = props.itemClass;
     this.headersClass = props.headersClass;
     this.panelsClass = props.panelsClass;
-    this.trackerClass = props.trackerClass;
     // options
     this.transitionSpeed = props.speed;
-    this.firstToBeExpanded = props.firstToBeExpanded;
     // state
     this.panelData = [];
   }
@@ -51,27 +21,23 @@ class Accordion {
 
     this.outerWrapper.classList.add(`${this.outerWrapperClass}-js`);
 
-    // initialize tracker
-    this.tracker = new Tracker().create({
-      cssClass: this.trackerClass,
-      container: this.wrapper,
-      lastControl: this.controls[this.controls.length - 1],
-    });
-
     this.setHeights();
 
     this.setListeners();
 
-    setAriaRoles(this.controls, this.panelData.map(item => item.el));
+    setAriaRoles(
+      this.controls,
+      this.panelData.map(item => item.el)
+    );
   }
 
-  initPanelData(firstToBeExpanded) {
+  initPanelData() {
     const panels = Array.prototype.slice.call(document.querySelectorAll(`.${this.panelsClass}`));
     panels.forEach((panel, index) => {
       const panelDataItem = {
         idx: index,
         el: panel,
-        isExpanded: !!(firstToBeExpanded && index === 0),
+        isExpanded: index === panels.length - 1,
         height: null,
       };
       this.panelData.push(panelDataItem);
@@ -98,14 +64,12 @@ class Accordion {
     // resize
     window.addEventListener('resize', debounce(this.setHeights, 50).bind(this));
     // keydown
-    this.wrapper.addEventListener('keydown', () => {
+    this.wrapper.addEventListener('keydown', event => {
       handleKeydown(event, this.controls);
     });
   }
 
   setHeights() {
-    this.tracker.el.style.transition = 'none';
-
     this.panelData.forEach(panel => {
       const panelStyle = panel.el.style;
       panelStyle.transition = 'none';
@@ -126,14 +90,6 @@ class Accordion {
               sumFullHeightsOf(this.controls) +
               5}px 
         `;
-
-    // adjust tracker height (only if the currently expanded panel is not the last)
-    if (this.panelData[this.panelData.length - 1].isExpanded === false) {
-      this.tracker.adjustInitialHeightInRelationTo(this.wrapper.offsetHeight);
-    }
-
-    // delay putting transition back on the tracker to prevent snappy animation
-    addCssTransitionWithDelay(this.tracker.el, 'height', this.transitionSpeed);
   }
 
   handleClick(e) {
@@ -155,22 +111,10 @@ class Accordion {
     // 1. toggle panels
     togglePanelsHeight(panelToHide, panelToShow);
 
-    // 2. adjust tracker height
-    if (controlId === this.panelData.length - 1) {
-      // last item being clicked
-      this.tracker.adjustCurrentHeightBy(-panelToHideHeight);
-    } else if (panelToHide.idx === this.panelData.length - 1) {
-      // coming from last
-      this.tracker.adjustCurrentHeightBy(+panelToShowHeight);
-    } else {
-      this.tracker.adjustCurrentHeightBy(-panelToHideHeight);
-      this.tracker.adjustCurrentHeightBy(+panelToShowHeight);
-    }
-
-    // 3. toggle aria roles
+    // 2. toggle aria roles
     toggleAriaAttributes(this.controls, controlClicked, panelToHide, panelToShow);
 
-    // 4. update state
+    // 3. update state
     panelToShow.isExpanded = true;
     panelToHide.isExpanded = false;
   }
@@ -269,7 +213,7 @@ function setAriaRoles(controls, panels) {
     ctrl.setAttribute('aria-controls', `sec${i + 1}`);
     ctrl.setAttribute('id', `ctrl${i + 1}`);
 
-    if (i === 0) {
+    if (i === controls.length - 1) {
       ctrl.setAttribute('aria-expanded', 'true');
       ctrl.setAttribute('aria-disabled', 'true');
     } else {
@@ -319,8 +263,6 @@ window.onload = function() {
     itemClass: 'accordion-item',
     headersClass: 'accordion-trigger',
     panelsClass: 'accordion-content',
-    trackerClass: 'tracker',
     speed: '500',
-    firstToBeExpanded: true,
   }).init();
 };

@@ -21,16 +21,21 @@
 }
   
 .tracker {
-    z-index: 1;
-    content: '';
-    position: absolute;
-    top: 15px;
-    width: 2px;
-    left: 19px;
-    background-image: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.8) 80%, rgba(255,255,255,.6));
+    position: relative;
 
-    @media (min-width: $laptop) {
-        left: 104px;
+    &::before {
+        z-index: 1;
+        content: '';
+        position: absolute;
+        top: 15px;
+        bottom: -38px;
+        width: 2px;
+        left: 5px;
+        background-image: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.8) 80%, rgba(255,255,255,.6));
+
+        @media (min-width: $laptop) {
+            left: 90px;
+        }
     }
 }
 
@@ -94,6 +99,11 @@
         @media (min-width: $laptop) {
             display: block;
         }
+    }
+
+    &--last {
+      // fix height because of the tracker
+      height: 74px;
     }
   }
   
