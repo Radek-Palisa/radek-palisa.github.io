@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #e5e5e5;
+        margin: 0;
+        padding: 16px;
+      }
+      my-card:not(:defined) {
+        /* Pre-style, give layout, replicate app-drawer's eventual styles, etc. */
+        display: inline-block;
+        height: 100vh;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+
+  <body>
+    <my-canvas>
+      <my-card>
+        <span slot="label">lorem</span>
+        <h2 slot="heading">Heading 1</h2>
+        <span
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur.</span
+        >
+      </my-card>
+      <my-card>
+        <span slot="label">ipsum</span>
+        <h2 slot="heading">Heading 2</h2>
+        <span
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur.
+        </span>
+      </my-card>
+    </my-canvas>
+    <p>Hello</p>
+    <script src="src/index.js"></script>
+  </body>
+</html>
