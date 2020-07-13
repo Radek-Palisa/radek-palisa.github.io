@@ -1,4 +1,4 @@
-let template = document.createElement("template");
+const template = document.createElement('template');
 
 const styles = `
   :host {
@@ -52,12 +52,12 @@ template.innerHTML = `
 
 export default class Card extends HTMLElement {
   static get observedAttributes() {
-    return ["my-active"];
+    return ['my-active'];
   }
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     this.labelEl = null;
     this.sizeLabelEl = null;
     this._handleLabelClick = this._handleLabelClick.bind(this);
@@ -68,22 +68,22 @@ export default class Card extends HTMLElement {
   connectedCallback() {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    this.labelEl = this.shadowRoot.querySelector("label");
-    this.labelEl.addEventListener("click", this._handleLabelClick);
+    this.labelEl = this.shadowRoot.querySelector('label');
+    this.labelEl.addEventListener('click', this._handleLabelClick);
   }
 
   disconnectedCallback() {
-    this.labelEl.removeEventListener("click", this._handleLabelClick);
+    this.labelEl.removeEventListener('click', this._handleLabelClick);
   }
 
   _handleLabelClick(event) {
     // console.log(event.target);
-    if (this.labelEl.hasAttribute("my-active")) {
+    if (this.labelEl.hasAttribute('my-active')) {
       return;
     }
-    this.labelEl.setAttribute("my-active", "");
+    this.labelEl.setAttribute('my-active', '');
     event.stopPropagation();
-    document.addEventListener("click", this._handleOutsideLabelClick);
+    document.addEventListener('click', this._handleOutsideLabelClick);
 
     this._addSizeLabel();
   }
@@ -91,18 +91,18 @@ export default class Card extends HTMLElement {
   _handleOutsideLabelClick(event) {
     console.log(event);
 
-    this.labelEl.removeAttribute("my-active");
+    this.labelEl.removeAttribute('my-active');
     this.sizeLabelEl.remove();
-    document.removeEventListener("click", this._handleOutsideLabelClick);
+    document.removeEventListener('click', this._handleOutsideLabelClick);
   }
 
   _addSizeLabel() {
     const cardElSize = this.shadowRoot
-      .getElementById("card")
+      .getElementById('card')
       .getBoundingClientRect();
 
-    this.sizeLabelEl = document.createElement("span");
-    this.sizeLabelEl.classList.add("size-label");
+    this.sizeLabelEl = document.createElement('span');
+    this.sizeLabelEl.classList.add('size-label');
     this.sizeLabelEl.innerText = `${Math.round(cardElSize.width)}x${Math.round(
       cardElSize.height
     )}`;

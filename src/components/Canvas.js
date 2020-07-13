@@ -1,8 +1,9 @@
 export default class MyCanvas extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
     this.shadowRoot.innerHTML = `
       <style>
