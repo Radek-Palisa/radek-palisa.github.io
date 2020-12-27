@@ -29,33 +29,33 @@
   <div class="Container">
       <my-card class="Card">
         <span slot="label">intro 24</span>
-        <my-card-content style="--mask: center / cover url('/src/static/shape-1.svg')">
+        <div class="CardBackdrop" id="Intro-backdrop">
           <div class="typography-scribble scribble--intro">
             <p>Cool introduction</p>
             <p>pic</p>
             <p>name</p>
             <p>title</p>
           </div>
-          <div id="profile-wrapper">
+          <div id="Intro-profile-wrapper">
             <div>
               <img width="182" height="182" src="src/static/profile-pic.jpg" alt="profile picture" />
             </div>
           </div>
-          <h1 class="typography-h1 text-center">
+          <h1 class="typography-display text-center">
             Radek Palisa
             <br>
             <span class="subtitle">Web Developer</span>
           </h1>
-          <p class="typography-scribble text-center">&<br>Designs Tinkerer</p>
-        </my-card-content>
+          <p id="Intro-bottom-scribble" class="typography-scribble text-center">&<br><br>Designs Tinkerer</p>
+        </div>
       </my-card>
-      <my-card class="Card" id="card-background">
+      <my-card class="Card" id="About">
         <span slot="label">background</span>
-        <my-card-content style="--mask: bottom / contain url('/src/static/shape-swell.svg'); min-height: 776px;">
-          <!-- <h2>Hi 👋<br />Welcome to my resume website.</h2>
-          <p>I’m a software developer at kiwi.com, currently based in Barcelona, Spain.</p>
-          <p>I build web experiences. Today, writing code still excites me as it did 5 years ago when I wrote my first “Hello, world”. I find it very cool that I get to work on a product that is used by thousands of people every day.</p> -->
-        </my-card-content>
+        <div class="CardBackdrop" id="About-backdrop">
+          <h2><span class="typography-h1">Hi 👋</span><br /><span class="typography-h3">Welcome to my resume website.</span></h2>
+          <p class="typography-body">I’m a software developer at kiwi.com, currently based in Barcelona, Spain.</p>
+          <p class="typography-body">I build web experiences. Today, writing code still excites me as it did 5 years ago when I wrote my first “Hello, world”. I find it very cool that I get to work on a product that is used by thousands of people every day.</p>
+          </div>
       </my-card>
     <script src="src/index.js"></script>
   </div>

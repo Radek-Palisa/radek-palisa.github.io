@@ -20,6 +20,7 @@ const styles = `
     color: rgb(0, 0, 0, .4);
     margin-left: 6px;
     font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
   }
   label:hover, label[my-active] {
     color: #46A0F4;

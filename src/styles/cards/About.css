@@ -1,0 +1,9 @@
+#About-backdrop {
+  --mask: bottom / contain url('/src/static/shape-swell.svg');
+  min-height: 776px;
+}
+
+#About h2 {
+  margin-top: 160px;
+}
+

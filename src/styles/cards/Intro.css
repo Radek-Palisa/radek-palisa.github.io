@@ -1,15 +1,25 @@
+#Intro-backdrop {
+  --mask: center / cover url('/src/static/shape-1.svg')
+}
 
-#profile-wrapper > div {
+#Intro-profile-wrapper > div {
   padding: 8px;
   background-color: #fff;
   border-radius: 50%;
   max-width: 198px;
-  margin: 90px auto 65px;
+  margin: 50px auto 65px;
 }
 
-#profile-wrapper > div > img {
+#Intro-profile-wrapper > div > img {
   display: block;
   border-radius: 50%;
+}
+
+#Intro-bottom-scribble {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  width: 100%;
 }
 
 

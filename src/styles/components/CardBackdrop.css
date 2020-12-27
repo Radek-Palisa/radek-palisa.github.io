@@ -1,0 +1,11 @@
+.CardBackdrop {
+  display: flex;
+  flex-direction: column;
+  width: 440px;
+  max-width: 100%;
+  min-height: 644px;
+  padding: 40px;
+  background-position: center;
+  background-repeat: no-repeat !important;
+  background: var(--mask);
+}
