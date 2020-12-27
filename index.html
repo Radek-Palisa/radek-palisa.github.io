@@ -1,56 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Parcel Sandbox</title>
-    <meta charset="UTF-8" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background-color: #e5e5e5;
-        margin: 0;
-        padding: 16px;
-      }
-      my-card:not(:defined) {
-        /* Pre-style, give layout, replicate app-drawer's eventual styles, etc. */
-        display: inline-block;
-        height: 100vh;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-      }
-    </style>
-  </head>
 
-  <body>
-    <my-canvas>
-      <my-card>
-        <span slot="label">lorem</span>
-        <h2 slot="heading">Heading 1</h2>
-        <span
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.</span
-        >
+<head>
+  <title>Parcel Sandbox</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Rock+Salt&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      background-color: #e5e5e5;
+      margin: 0;
+      padding: 16px;
+    }
+
+    my-card:not(:defined) {
+      /* Pre-style, give layout, replicate app-drawer's eventual styles, etc. */
+      display: inline-block;
+      height: 100vh;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="Container">
+      <my-card class="Card">
+        <span slot="label">intro 24</span>
+        <my-card-content style="--mask: center / cover url('/src/static/shape-1.svg')">
+          <div class="typography-scribble scribble--intro">
+            <p>Cool introduction</p>
+            <p>pic</p>
+            <p>name</p>
+            <p>title</p>
+          </div>
+          <div id="profile-wrapper">
+            <div>
+              <img width="182" height="182" src="src/static/profile-pic.jpg" alt="profile picture" />
+            </div>
+          </div>
+          <h1 class="typography-h1 text-center">
+            Radek Palisa
+            <br>
+            <span class="subtitle">Web Developer</span>
+          </h1>
+          <p class="typography-scribble text-center">&<br>Designs Tinkerer</p>
+        </my-card-content>
       </my-card>
-      <my-card>
-        <span slot="label">ipsum</span>
-        <h2 slot="heading">Heading 2</h2>
-        <span
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
-        </span>
+      <my-card class="Card" id="card-background">
+        <span slot="label">background</span>
+        <my-card-content style="--mask: bottom / contain url('/src/static/shape-swell.svg'); min-height: 776px;">
+          <!-- <h2>Hi 👋<br />Welcome to my resume website.</h2>
+          <p>I’m a software developer at kiwi.com, currently based in Barcelona, Spain.</p>
+          <p>I build web experiences. Today, writing code still excites me as it did 5 years ago when I wrote my first “Hello, world”. I find it very cool that I get to work on a product that is used by thousands of people every day.</p> -->
+        </my-card-content>
       </my-card>
-    </my-canvas>
-    <p>Hello</p>
     <script src="src/index.js"></script>
-  </body>
+  </div>
+</body>
+
 </html>
