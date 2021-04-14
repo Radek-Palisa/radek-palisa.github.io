@@ -7,3 +7,24 @@
   margin-top: 160px;
 }
 
+#About-top-scribble {
+  position: absolute;
+  right: 30px;
+  top: 15px;
+  text-align: right;
+  line-height: 2.8;
+}
+
+#About-bottom-scribble {
+  position: absolute;
+  right: 30px;
+  bottom: 10px;
+  text-align: right;
+  line-height: 2.8;
+}
+
+#About-scribble-line-1 {
+  position: absolute;
+  right: 0;
+  top: 35px;
+}

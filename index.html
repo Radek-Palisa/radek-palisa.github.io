@@ -27,36 +27,137 @@
 
 <body>
   <div class="Container">
-      <my-card class="Card">
-        <span slot="label">intro 24</span>
-        <div class="CardBackdrop" id="Intro-backdrop">
-          <div class="typography-scribble scribble--intro">
-            <p>Cool introduction</p>
-            <p>pic</p>
-            <p>name</p>
-            <p>title</p>
-          </div>
-          <div id="Intro-profile-wrapper">
-            <div>
-              <img width="182" height="182" src="src/static/profile-pic.jpg" alt="profile picture" />
-            </div>
-          </div>
-          <h1 class="typography-display text-center">
-            Radek Palisa
-            <br>
-            <span class="subtitle">Web Developer</span>
-          </h1>
-          <p id="Intro-bottom-scribble" class="typography-scribble text-center">&<br><br>Designs Tinkerer</p>
+    <my-card class="Card">
+      <span slot="label">intro 24</span>
+      <div class="CardBackdrop" id="Intro-backdrop">
+        <div id="Intro-top-scribble" class="typography-scribble">
+          <svg id="Intro-scribble-line-1" width="1" height="106" viewBox="0 0 1 106" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <line x1="0.5" y1="106" x2="0.5" stroke="black" stroke-opacity="0.04" />
+          </svg>
+          <svg id="Intro-scribble-line-2" width="176" height="4" viewBox="0 0 176 4" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 3C54.5828 -1.36588 88.8386 2.7377 175 3" stroke="url(#paint0_linear)" />
+            <defs>
+              <linearGradient id="paint0_linear" x1="0.999969" y1="-1.36033" x2="175" y2="-1.36089"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-opacity="0.04" />
+                <stop offset="0.208333" stop-opacity="0.19" />
+                <stop offset="0.75" stop-opacity="0.04" />
+                <stop offset="1" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <p>Cool introduction</p>
+          <p>pic</p>
+          <p>name</p>
+          <p>title</p>
         </div>
-      </my-card>
-      <my-card class="Card" id="About">
-        <span slot="label">background</span>
-        <div class="CardBackdrop" id="About-backdrop">
-          <h2><span class="typography-h1">Hi 👋</span><br /><span class="typography-h3">Welcome to my resume website.</span></h2>
-          <p class="typography-body">I’m a software developer at kiwi.com, currently based in Barcelona, Spain.</p>
-          <p class="typography-body">I build web experiences. Today, writing code still excites me as it did 5 years ago when I wrote my first “Hello, world”. I find it very cool that I get to work on a product that is used by thousands of people every day.</p>
+        <div id="Intro-profile-wrapper">
+          <div>
+            <img width="182" height="182" src="src/static/profile-pic.jpg" alt="profile picture" />
           </div>
-      </my-card>
+        </div>
+        <h1 class="typography-display text-center">
+          Radek Palisa
+          <br>
+          <span class="subtitle">Web Developer</span>
+        </h1>
+        <p id="Intro-bottom-scribble" class="typography-scribble text-center">&<br><br>Designs Tinkerer</p>
+      </div>
+    </my-card>
+    <my-card class="Card" id="About">
+      <span slot="label">background</span>
+      <div class="CardBackdrop" id="About-backdrop">
+        <div id="About-top-scribble" class="typography-scribble">
+          <svg id="About-scribble-line-1" width="176" height="4" viewBox="0 0 176 4" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M175 3C121.417 -1.36588 87.1614 2.7377 1 3" stroke="url(#paint0_linear)" />
+            <defs>
+              <linearGradient id="paint0_linear" x1="175" y1="-1.36033" x2="0.999523" y2="-1.36089"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-opacity="0.04" />
+                <stop offset="0.208333" stop-opacity="0.19" />
+                <stop offset="0.75" stop-opacity="0.04" />
+                <stop offset="1" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <p>explain What this is about,<br />who you are, What you do,<br />why you do</p>
+        </div>
+        <h2><span class="typography-h1">Hi 👋</span><br /><span class="typography-h3">Welcome to my resume
+            website.</span></h2>
+        <p class="typography-body">I’m a software developer at kiwi.com, currently based in Barcelona, Spain.</p>
+        <p class="typography-body">I build web experiences. Today, writing code still excites me as it did 5 years ago
+          when I wrote my first “Hello, world”. I find it very cool that I get to work on a product that is used by
+          thousands of people every day.</p>
+        <p id="About-bottom-scribble" class="typography-scribble">list some<br />of your favorite technologies</p>
+      </div>
+    </my-card>
+    <my-card class="Card" id="Career">
+      <span slot="label">career</span>
+      <div class="CardBackdrop" id="Career-backdrop">
+        <div id="About-top-scribble" class="typography-scribble">
+          <svg id="Career-scribble-line-1" width="5" height="51" viewBox="0 0 5 51" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.33775 1.0616C-1.4827 15.9976 3.4007 25.7586 3.12997 50" stroke="url(#paint0_linear)" />
+            <defs>
+              <linearGradient id="paint0_linear" x1="-1.10383" y1="0.927294" x2="-2.31165" y2="49.8658"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-opacity="0.04" />
+                <stop offset="0.208333" stop-opacity="0.19" />
+                <stop offset="0.75" stop-opacity="0.04" />
+                <stop offset="1" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <svg id="Career-scribble-line-2" width="99" height="4" viewBox="0 0 99 4" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M98 1.00008C81.729 5.26715 25.304 1.4477 1 1" stroke="url(#paint0_linear)" />
+            <defs>
+              <linearGradient id="paint0_linear" x1="97.6419" y1="8.44113" x2="0.999035" y2="8.11007"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-opacity="0.04" />
+                <stop offset="0.333333" stop-opacity="0.19" />
+                <stop offset="0.6875" stop-opacity="0.04" />
+                <stop offset="1" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <p>List your<br />grown-up jobs</p>
+        </div>
+        <h2 class="typography-h2">Where I've worked</h2>
+        <ol id="Career-timeline">
+          <li class="Career-timeline-edge">now</li>
+          <li>
+            <div><strong>Kiwi.com</strong>
+              <p>Software Engineer</p>
+            </div>
+          </li>
+          <li>
+            <div><strong>Ebay</strong>
+              <p>Web Developer</p>
+            </div>
+          </li>
+          <li>
+            <div><strong>Alensa</strong>
+              <p>Frontend Developer</p>
+            </div>
+          </li>
+          <li>
+            <div><strong>Auto Caravan Sport</strong>
+              <p>Web Developer</p>
+            </div>
+          </li>
+          <li>
+            <div><strong>SAP</strong>
+              <p>Data Management Associate</p>
+            </div>
+          </li>
+          <li class="Career-timeline-edge">2015</li>
+        </ol>
+      </div>
+    </my-card>
     <script src="src/index.js"></script>
   </div>
 </body>

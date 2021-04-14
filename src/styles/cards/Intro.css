@@ -15,6 +15,12 @@
   border-radius: 50%;
 }
 
+#Intro-top-scribble {
+  position: absolute;
+  left: 35px;
+  top: 20px;
+}
+
 #Intro-bottom-scribble {
   position: absolute;
   bottom: 16px;
@@ -22,15 +28,19 @@
   width: 100%;
 }
 
+#Intro-scribble-line-1 {
+  position: absolute;
+  top: 15px;
+  left: -15px;
+}
+#Intro-scribble-line-2 {
+  position: absolute;
+  top: 28px;
+  left: -30px;
+}
 
 .subtitle {
   font-size: 19px;
   font-weight: 600;
   color: #757575;
-}
-
-.scribble--intro {
-  position: absolute;
-  left: 35px;
-  top: 20px;
 }
