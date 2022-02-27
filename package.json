@@ -14,7 +14,7 @@
   "homepage": "https://github.com/Radek-Palisa/personal-website#readme",
   "scripts": {
     "start": "parcel src/index.html",
-    "build": "parcel build",
+    "build": "parcel build src/index.html --dist-dir docs --no-source-maps",
     "publish": "npm run build && git add . && git commit -m \"deploy\" && git push origin"
   },
   "devDependencies": {
