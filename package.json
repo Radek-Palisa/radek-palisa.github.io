@@ -1,0 +1,26 @@
+{
+  "name": "personal_website",
+  "version": "1.1.0",
+  "description": "personal website to showcase work",
+  "default": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Radek-Palisa/personal-website"
+  },
+  "author": "Radek Palisa",
+  "bugs": {
+    "url": "https://github.com/Radek-Palisa/personal-website/issues"
+  },
+  "homepage": "https://github.com/Radek-Palisa/personal-website#readme",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build",
+    "publish": "npm run build && git add . && git commit -m \"deploy\" && git push origin"
+  },
+  "devDependencies": {
+    "@parcel/packager-raw-url": "^2.3.2",
+    "@parcel/transformer-sass": "^2.3.2",
+    "@parcel/transformer-webmanifest": "^2.3.2",
+    "parcel": "^2.3.2"
+  }
+}
