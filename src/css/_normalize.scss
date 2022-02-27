@@ -1,8 +1,7 @@
 
 html {
-  font-family: sans-serif; /* 1 */
-  -ms-text-size-adjust: 100%; /* 2 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
 }
 
 article,
@@ -21,7 +20,6 @@ a {
   background-color: transparent;
 }
 
-
 a:active,
 a:hover {
   outline: 0;
@@ -36,21 +34,11 @@ svg:not(:root) {
 }
 
 button {
-  color: inherit; /* 1 */
-  font: inherit; /* 2 */
-  margin: 0; /* 3 */
+  color: inherit;
+  font: inherit;
+  margin: 0;
   overflow: visible;
   text-transform: none;
-  -webkit-appearance: button; /* 2 */
-  cursor: pointer; /* 3 */
+  -webkit-appearance: button;
+  cursor: pointer;
 }
-
-button[disabled] {
-  cursor: default;
-}
-
-button::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-

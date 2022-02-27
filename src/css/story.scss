@@ -1,0 +1,119 @@
+.story {
+	background: linear-gradient(rgba($dark-purple, .87), rgba($dark-purple, .87)), url('../static/images/sunset_m_q0.jpg') center / cover;
+	@media (min-width: $laptop) {
+		background: linear-gradient(rgba($dark-purple, .87), rgba($dark-purple, .87)), url('../static/images/sunset_0q.jpg') center / cover;
+  }
+	padding-bottom: 7.5vw;
+	padding-top: 7.5vw;
+}
+
+.section-title--story {
+	color: white;
+}
+
+.logo {
+	&-sap {
+		height: 45px;
+  }
+	&-acs { 
+		height: 25px;
+  }
+	&-alensa { 
+		height: 37px;
+  }
+	&-ebay { 
+		width: 96px;
+  }
+}
+
+.storyline {
+    margin: 0 auto 50px;
+    padding: 0 14px;
+    max-width: 625px;
+}
+
+.storyline-list {
+    position: relative;
+    padding: 0;
+    margin: 0;
+
+    // decoration
+    &::before {
+        z-index: 1;
+        content: '';
+        position: absolute;
+        top: 21px;
+        bottom: 41px;
+        width: 2px;
+        left: 90px;
+        background-image: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.8) 80%, rgba(255,255,255,.6));
+    }
+}
+
+.story-copy {
+    padding-top: 6px;
+    margin: 0;
+    @media (min-width: $laptop) {
+        margin-left: 125px;
+    }
+    line-height: 1.8;
+    font-weight: 300;
+    color: $white;
+}
+
+.storyline-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 82px;
+
+    > span {
+        width: 65px;
+        margin-right: 60px;
+        color: rgba(white, 0.6);
+        font-size: 14px;
+        text-align: left;
+        @media (min-width: $laptop) {
+          text-align: right;
+      }
+    }
+  }
+
+.storyline-item {
+  
+    &::before, &::after {
+        z-index: 2;
+        content: '';
+        position: absolute;
+        top: calc(50% - 6px);
+        border-radius: 50%;
+    }
+    &::before {
+        width: 12px;
+        height: 12px;
+        background-color: rgba($dark-purple, 1);
+        left: 85px;
+        border: 1px solid rgba(255,255,255,.6);
+    }
+    &::after {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(white, .6);
+        left: 87px;
+        margin-top: 2px;
+    }
+
+    &:last-child {
+        &::before {
+          border: 1px solid rgba(255,255,255,1);
+        }
+      
+        &::after {
+            background-color: rgba(white, 1);
+        }
+      
+        > span {
+            color: rgba(white, .9);
+        }        
+    }
+}
