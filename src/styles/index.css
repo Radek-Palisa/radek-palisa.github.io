@@ -1,0 +1,6 @@
+:root {
+  --color-primary: #10638B;
+  --color-typography-body: #5A5A5A;
+}
+
+@import './_base.css';
