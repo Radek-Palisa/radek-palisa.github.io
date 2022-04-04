@@ -1,0 +1,12 @@
+#profile-image-wrapper {
+  padding: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+  max-width: 198px;
+  margin: 50px auto 65px;
+}
+
+#profile-image-wrapper > img {
+  display: block;
+  border-radius: 50%;
+}

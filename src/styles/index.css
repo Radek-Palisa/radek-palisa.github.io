@@ -3,4 +3,63 @@
   --color-typography-body: #5A5A5A;
 }
 
-@import './_base.css';
+html {
+  background-color: #F0F0F0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#frame-container {
+  max-width: calc(440px * 2 + 50px * 4);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: min(3vw, 50px);
+  gap: min(3vw, 50px);;
+}
+
+@media screen and (min-width: 1440px) {
+  #frame-container {
+    max-width: calc(440px * 3 + 50px * 4);
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.frame {
+  contain: content;
+  max-width: 100%;
+  min-height: 644px;
+  padding: 40px;
+  background-color: white;
+  background-image: url('/assets/decorations/dot-pattern.svg'), linear-gradient(83deg, #CCEAFF, #FFEAA0);
+}
+
+.frame:nth-child(1) {
+  height: 644px;
+}
+
+.frame:nth-child(1)::before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-image: url('/assets/decorations/shape-1.svg');
+}
+
+.frame:nth-child(2) {
+  margin-top: 160px;
+  height: 776px;
+}
+
+.frame:nth-child(3) {
+  margin-top: 260px;
+}
+
+.frame:nth-child(4) {
+  margin-top: calc((776px - 644px + 160px) * -1);
+  height: 677px;
+}
